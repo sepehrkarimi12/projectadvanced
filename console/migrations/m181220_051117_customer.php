@@ -10,7 +10,7 @@ class m181220_051117_customer extends Migration
     /**
      * {@inheritdoc}
      */
-    public function safeUp()
+    public function Up()
     {
         $this->createTable('customer',[
             'id' => $this->primaryKey(),
@@ -21,38 +21,22 @@ class m181220_051117_customer extends Migration
             'phone' => $this->string(11)->notNull(),
             'mobile' => $this->string(11)->notNull(),
 
-            //'isActive' => $this->ENUM('active','inActive')->notNull(),
+            'isActive' => $this->smallIntegeer()->notNull(),
 
-            'creator_id' => $this->integer(),
-            'created_at' => $this->datetime(),
+            'creator_id' => $this->integer()->notNull(),
+            'created_at' => $this->integer()->notNull(),
 
             'deletor_id' => $this->integer(),
-            'deleted_at' => $this->datetime(),
+            'deleted_at' => $this->integer()->notNull(),
         ]);
     }
 
     /**
      * {@inheritdoc}
      */
-    public function safeDown()
+    public function Down()
     {
-        echo "m181220_051117_customer cannot be reverted.\n";
-
-        return false;
+        $this->dropTable('customer');
     }
 
-    /*
-    // Use up()/down() to run migration code without a transaction.
-    public function up()
-    {
-
-    }
-
-    public function down()
-    {
-        echo "m181220_051117_customer cannot be reverted.\n";
-
-        return false;
-    }
-    */
 }
