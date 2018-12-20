@@ -26,7 +26,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'permissions', 'down-permissions'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -37,6 +37,10 @@ class SiteController extends Controller
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['permissions', 'down-permissions'],
+                        'allow' => false,
                     ],
                 ],
             ],
@@ -212,4 +216,37 @@ class SiteController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionPermissions()
+    {
+        $auth= Yii::$app->authManager;
+
+        $superadmin=$auth->createRole('superAdmin');
+        $auth->add($superadmin);
+
+        $employe=$auth->createRole('employe');
+        $auth->add($employe);
+
+        $useroperation=$auth->createPermission('userOperation');
+        $auth->add($useroperation);
+
+        $serviceoperation=$auth->createPermission('serviceOperation');
+        $auth->add($serviceoperation);
+
+        $networkoperation=$auth->createPermission('networkOperation');
+        $auth->add($networkoperation);
+
+        $auth->addChild($superadmin,$useroperation);
+        $auth->addChild($superadmin,$serviceoperation);
+        $auth->addChild($superadmin,$networkoperation);
+
+        $auth->assign($superadmin,1);
+    }
+
+    public function actionDownPermissions()
+    {
+        $auth = Yii::$app->authManager;
+        $auth->removeAll();
+    }
+
 }
