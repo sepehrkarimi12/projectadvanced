@@ -5,14 +5,15 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Customer;
 use frontend\models\searchs\CustomerSearch;
-use yii\web\Controller;
+// use yii\web\Controller;
+use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * CustomerController implements the CRUD actions for Customer model.
  */
-class CustomerController extends Controller
+class CustomerController extends Zcontroller
 {
     /**
      * {@inheritdoc}
@@ -64,11 +65,11 @@ class CustomerController extends Controller
      */
     public function actionCreate()
     {
+        //customize function is in Zcontroller class
         $model = new Customer();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->created_at=time();
-            $model->creator_id=Yii::$app->user->id;
+            $model=$this->save_customize($model);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -108,11 +109,9 @@ class CustomerController extends Controller
     public function actionDelete($id)
     {
         // $this->findModel($id)->delete();
-        
+        //customize function is in Zcontroller class
         $model=$this->findModel($id);
-        $model->is_deleted=1;
-        $model->deleted_at=time();
-        $model->deletor_id=Yii::$app->user->id;
+        $model=$this->delete_customize($model);
         $model->save();
 
         return $this->redirect(['index']);
