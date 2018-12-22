@@ -15,9 +15,9 @@ class m181220_092631_pop_building extends Migration
             'id' => $this->primaryKey(),
             'name' => $this->string(100)->notNull(),
             'address' => $this->string(200)->notNull(),
-            'ip_address' => $this->string(15)->notNull(),
+            'ip_address' => $this->string(15),
             
-            'isActive' => $this->smallIntegeer()->notNull(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
 
             'creator_id' => $this->integer()->notNull(),
             'created_at' => $this->integer()->notNull(),

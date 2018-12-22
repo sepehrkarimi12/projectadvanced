@@ -16,8 +16,9 @@ class m181220_093203_radio extends Migration
             'name' => $this->string(100)->notNull(),
             'model' => $this->string(100)->notNull(),
             'serial' => $this->string(100)->notNull(),
+            'pop_building_id' => $this->integer()->notNull(),
             
-            'isActive' => $this->smallIntegeer()->notNull(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
 
             'creator_id' => $this->integer()->notNull(),
             'created_at' => $this->integer()->notNull(),
@@ -25,6 +26,16 @@ class m181220_093203_radio extends Migration
             'deletor_id' => $this->integer(),
             'deleted_at' => $this->integer()->notNull(),
         ]);
+
+        $this->addForeignKey(
+            'fk-radio-pop_building_id',
+            'service',
+            'pop_building_id',
+            'pop_building',
+            'id',
+            'CASCADE'
+        );
+
     }
 
     public function down()

@@ -21,7 +21,7 @@ class m181220_051117_customer extends Migration
             'phone' => $this->string(11)->notNull(),
             'mobile' => $this->string(11)->notNull(),
 
-            'isActive' => $this->smallIntegeer()->notNull(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
 
             'creator_id' => $this->integer()->notNull(),
             'created_at' => $this->integer()->notNull(),

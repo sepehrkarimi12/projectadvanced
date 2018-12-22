@@ -15,7 +15,7 @@ class m181220_083252_type extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string(100)->notNull()->unique(),
             
-            'isActive' => $this->smallIntegeer()->notNull(),
+            'status' => $this->smallInteger()->notNull()->defaultValue(1),
 
             'creator_id' => $this->integer()->notNull(),
             'created_at' => $this->integer()->notNull(),
@@ -24,14 +24,14 @@ class m181220_083252_type extends Migration
             'deleted_at' => $this->integer()->notNull(),
         ]);
 
-        $this->addForeignKey(
-            'fk-type-id',
-            'type',
-            'id',
-            'service',
-            'id',
-            'CASCADE'
-        );
+        // $this->addForeignKey(
+        //     'fk-type-id',
+        //     'type',
+        //     'id',
+        //     'service',
+        //     'id',
+        //     'CASCADE'
+        // );
 
     }
 
