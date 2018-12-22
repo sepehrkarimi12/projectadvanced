@@ -3,21 +3,18 @@
 use yii\db\Migration;
 
 /**
- * Class m181220_093203_radio
+ * Class m181222_094934_networktype
  */
-class m181220_093203_radio extends Migration
+class m181222_094934_networktype extends Migration
 {
 
+    
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        
-        $this->createTable('radio',[
+        $this->createTable('networktype',[
             'id' => $this->primaryKey(),
-            'name' => $this->string(100)->notNull(),
-            'model' => $this->string(100)->notNull(),
-            'serial' => $this->string(100)->notNull(),
-            'network_id' => $this->integer()->notNull(),
+            'title' => $this->string(100)->notNull()->unique(),
             
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
 
@@ -27,12 +24,11 @@ class m181220_093203_radio extends Migration
             'deletor_id' => $this->integer(),
             'deleted_at' => $this->integer(),
         ]);
-
     }
 
     public function down()
     {
-        $this->dropTable('radio');
+        $this->dropTable('networktype');
     }
-
+    
 }

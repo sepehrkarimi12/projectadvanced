@@ -23,11 +23,11 @@ class m181220_051117_customer extends Migration
 
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
 
-            'creator_id' => $this->integer()->notNull(),
-            'created_at' => $this->integer()->notNull(),
+            'creator_id' => $this->integer(),
+            'created_at' => $this->integer(),
 
             'deletor_id' => $this->integer(),
-            'deleted_at' => $this->integer()->notNull(),
+            'deleted_at' => $this->integer(),
         ]);
     }
 

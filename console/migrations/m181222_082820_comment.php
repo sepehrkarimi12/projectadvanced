@@ -3,24 +3,19 @@
 use yii\db\Migration;
 
 /**
- * Class m181220_080920_service
+ * Class m181222_082820_comment
  */
-class m181220_080920_service extends Migration
+class m181222_082820_comment extends Migration
 {
 
-    
     // Use up()/down() to run migration code without a transaction.
     public function up()
     {
-        $this->createTable('service',[
+        $this->createTable('comment',[
             'id' => $this->primaryKey(),
-            'name' => $this->string(100)->notNull(),
+            'text' => $this->text()->notNull(),
+            'file' => $this->string(100),
             'customer_id' => $this->integer()->notNull(),
-            'type_id' => $this->integer()->notNull(),
-            'network_id' => $this->integer()->notNull(),
-            'address' => $this->string(200)->notNull(),
-            'ppoe_username' => $this->string(100)->notNull(),
-            'ppoe_password' => $this->string(100)->notNull(),
 
             'status' => $this->smallInteger()->notNull()->defaultValue(1),
 
@@ -35,7 +30,7 @@ class m181220_080920_service extends Migration
 
     public function down()
     {
-        $this->dropTable('service');
+        $this->dropTable('comment');
     }
     
 }
