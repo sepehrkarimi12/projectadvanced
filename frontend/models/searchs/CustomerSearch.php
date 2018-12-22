@@ -17,7 +17,7 @@ class CustomerSearch extends Customer
     public function rules()
     {
         return [
-            [['id', 'status', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
+            [['id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
             [['fname', 'lname', 'address', 'email', 'phone', 'mobile'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class CustomerSearch extends Customer
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status' => $this->status,
+            'is_deleted' => $this->is_deleted,
             'creator_id' => $this->creator_id,
             'created_at' => $this->created_at,
             'deletor_id' => $this->deletor_id,

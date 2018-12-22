@@ -14,7 +14,7 @@ use Yii;
  * @property string $email
  * @property string $phone
  * @property string $mobile
- * @property int $status
+ * @property int $is_deleted
  * @property int $creator_id
  * @property int $created_at
  * @property int $deletor_id
@@ -40,7 +40,7 @@ class Customer extends \yii\db\ActiveRecord
     {
         return [
             [['fname', 'lname', 'address', 'phone', 'mobile'], 'required'],
-            [['status', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
+            [['is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
             [['fname', 'lname'], 'string', 'max' => 50],
             [['address'], 'string', 'max' => 200],
             [['email'], 'string', 'max' => 60],
@@ -61,7 +61,7 @@ class Customer extends \yii\db\ActiveRecord
             'email' => Yii::t('app', 'Email'),
             'phone' => Yii::t('app', 'Phone'),
             'mobile' => Yii::t('app', 'Mobile'),
-            'status' => Yii::t('app', 'Status'),
+            'is_deleted' => Yii::t('app', 'Is Deleted'),
             'creator_id' => Yii::t('app', 'Creator ID'),
             'created_at' => Yii::t('app', 'Created At'),
             'deletor_id' => Yii::t('app', 'Deletor ID'),

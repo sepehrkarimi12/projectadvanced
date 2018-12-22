@@ -32,7 +32,7 @@ use yii\widgets\ActiveForm;
 
     <?php // echo $form->field($model, 'mobile') ?>
 
-    <?php // echo $form->field($model, 'status') ?>
+    <?php // echo $form->field($model, 'is_deleted') ?>
 
     <?php // echo $form->field($model, 'creator_id') ?>
 

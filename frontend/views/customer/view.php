@@ -36,7 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'email:email',
             'phone',
             'mobile',
-            'status',
+            'is_deleted',
             'creator_id',
             'created_at',
             'deletor_id',

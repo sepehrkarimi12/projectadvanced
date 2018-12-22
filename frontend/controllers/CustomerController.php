@@ -66,7 +66,10 @@ class CustomerController extends Controller
     {
         $model = new Customer();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model->created_at=time();
+            $model->creator_id=Yii::$app->user->id;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -104,7 +107,12 @@ class CustomerController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        // $this->findModel($id)->delete();
+        
+        $model=$this->findModel($id);
+        $model->is_deleted=1;
+        $model->deletor_id=Yii::$app->user->id;
+        $model->save();
 
         return $this->redirect(['index']);
     }
