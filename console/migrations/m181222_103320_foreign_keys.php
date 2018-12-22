@@ -69,6 +69,141 @@ class m181222_103320_foreign_keys extends Migration
             'NO ACTION'
         );
 
+        // to user table
+        $this->addForeignKey(
+            'FK_customer creator',
+            'customer',
+            'creator_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            'FK_customer deletor',
+            'customer',
+            'deletor_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+
+        $this->addForeignKey(
+            'FK_service creator',
+            'service',
+            'creator_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            'FK_service deletor',
+            'service',
+            'deletor_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+
+        $this->addForeignKey(
+            'FK_servicetype creator',
+            'servicetype',
+            'creator_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            'FK_servicetype deletor',
+            'servicetype',
+            'deletor_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+
+        $this->addForeignKey(
+            'FK_network creator',
+            'network',
+            'creator_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            'FK_network deletor',
+            'network',
+            'deletor_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+
+        $this->addForeignKey(
+            'FK_radio creator',
+            'radio',
+            'creator_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            'FK_radio deletor',
+            'radio',
+            'deletor_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+
+        $this->addForeignKey(
+            'FK_comment creator',
+            'comment',
+            'creator_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            'FK_comment deletor',
+            'comment',
+            'deletor_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+
+        $this->addForeignKey(
+            'FK_networktype creator',
+            'networktype',
+            'creator_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+        $this->addForeignKey(
+            'FK_networktype deletor',
+            'networktype',
+            'deletor_id',
+            'user',
+            'id',
+            'CASCADE',
+            'NO ACTION'
+        );
+
+
     }
 
     public function down()

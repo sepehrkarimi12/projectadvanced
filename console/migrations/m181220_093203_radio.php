@@ -19,7 +19,7 @@ class m181220_093203_radio extends Migration
             'serial' => $this->string(100)->notNull(),
             'network_id' => $this->integer()->notNull(),
             
-            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'is_deleted' => $this->smallInteger(),
 
             'creator_id' => $this->integer(),
             'created_at' => $this->integer(),

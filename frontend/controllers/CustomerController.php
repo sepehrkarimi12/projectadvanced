@@ -111,6 +111,7 @@ class CustomerController extends Controller
         
         $model=$this->findModel($id);
         $model->is_deleted=1;
+        $model->deleted_at=time();
         $model->deletor_id=Yii::$app->user->id;
         $model->save();
 

@@ -17,7 +17,7 @@ class m181222_082820_comment extends Migration
             'file' => $this->string(100),
             'customer_id' => $this->integer()->notNull(),
 
-            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'is_deleted' => $this->smallInteger(),
 
             'creator_id' => $this->integer(),
             'created_at' => $this->integer(),

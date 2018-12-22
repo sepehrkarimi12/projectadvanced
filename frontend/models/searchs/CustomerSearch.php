@@ -40,7 +40,7 @@ class CustomerSearch extends Customer
      */
     public function search($params)
     {
-        $query = Customer::find();
+        $query = Customer::find()->where(['!=','is_deleted',1]);
 
         // add conditions that should always apply here
 

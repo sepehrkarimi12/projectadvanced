@@ -18,7 +18,7 @@ class m181220_092631_network extends Migration
             'type_id' => $this->integer()->notNull(),
             'ip_address' => $this->string(15),
             
-            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'is_deleted' => $this->smallInteger(),
 
             'creator_id' => $this->integer(),
             'created_at' => $this->integer(),

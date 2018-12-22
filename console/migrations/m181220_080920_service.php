@@ -22,7 +22,7 @@ class m181220_080920_service extends Migration
             'ppoe_username' => $this->string(100)->notNull(),
             'ppoe_password' => $this->string(100)->notNull(),
 
-            'status' => $this->smallInteger()->notNull()->defaultValue(1),
+            'is_deleted' => $this->smallInteger(),
 
             'creator_id' => $this->integer(),
             'created_at' => $this->integer(),
