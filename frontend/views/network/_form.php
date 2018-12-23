@@ -21,7 +21,10 @@ use yii\widgets\ActiveForm;
         echo $form->field($model, 'type_id')->widget(Select2::classname(), [
             'data' => $networktypes,
             'language' => 'en',
-            'options' => ['placeholder' => 'Select network type name ...'],
+            'options' => [
+                'placeholder' => 'Select network type name ...',
+                'id' => 'typeId'
+            ],
             'pluginOptions' => [
                 'allowClear' => true
             ],
@@ -37,3 +40,20 @@ use yii\widgets\ActiveForm;
     <?php ActiveForm::end(); ?>
 
 </div>
+
+
+<!-- this network need Ip or not -->
+<?php 
+$script = <<< JS
+
+$('#typeId').change(function(){
+    var typeId = $(this).val();
+    $.get('index.php?r=network/get', { id : typeId }, function(data){
+        var data = $.parseJSON(data);
+        alert(data);
+    });
+});
+
+JS;
+$this->registerJS($script);
+?>
