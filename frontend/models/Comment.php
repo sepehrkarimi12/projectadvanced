@@ -25,6 +25,7 @@ use Yii;
  */
 class Comment extends \yii\db\ActiveRecord
 {
+    public $imageFile;
     /**
      * {@inheritdoc}
      */
@@ -46,6 +47,7 @@ class Comment extends \yii\db\ActiveRecord
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
             [['deletor_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deletor_id' => 'id']],
             [['customer_id'], 'exist', 'skipOnError' => true, 'targetClass' => Customer::className(), 'targetAttribute' => ['customer_id' => 'id']],
+            [['imageFile'], 'file' , 'extensions' => 'png, jpg'],
         ];
     }
 
@@ -89,6 +91,16 @@ class Comment extends \yii\db\ActiveRecord
     public function getCustomer()
     {
         return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
+    }
+
+    public function upload()
+    {
+        $address=null;
+        if($this->imageFile){
+        $address='uploads/' . time() . '.' . $this->imageFile->extension;
+        $this->imageFile->saveAs($address,false);
+        }
+        return $address;
     }
 
 }

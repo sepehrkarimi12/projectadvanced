@@ -41,7 +41,7 @@ class CommentSearch extends Comment
      */
     public function search($params)
     {
-        $query = Comment::find()->where(['!=','is_deleted',Zmodel::$active]);
+        $query = Comment::find()->where(['!=','comment.is_deleted',Zmodel::$active]);
 
         // add conditions that should always apply here
 
@@ -57,7 +57,7 @@ class CommentSearch extends Comment
             return $dataProvider;
         }
 
-        $query->joinWith('customer')->where(['!=','customer.is_deleted',Zmodel::$active]);
+        $query->joinWith('customer')->onCondition(['!=','customer.is_deleted',Zmodel::$active]);
         $query->joinWith('creator');
 
         // grid filtering conditions

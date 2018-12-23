@@ -5,7 +5,7 @@ namespace frontend\models\searchs;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\Servicetype;
-
+use common\components\Zmodel;
 /**
  * ServicetypeSearch represents the model behind the search form of `frontend\models\Servicetype`.
  */
@@ -40,7 +40,7 @@ class ServicetypeSearch extends Servicetype
      */
     public function search($params)
     {
-        $query = Servicetype::find();
+        $query = Servicetype::find()->where(['!=','is_deleted',Zmodel::$active]);
 
         // add conditions that should always apply here
 

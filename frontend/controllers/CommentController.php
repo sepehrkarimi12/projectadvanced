@@ -10,6 +10,7 @@ use common\components\Zmodel;
 use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CommentController implements the CRUD actions for Comment model.
@@ -81,8 +82,15 @@ class CommentController extends ZController
         // die();
 
         if ($model->load(Yii::$app->request->post()) ) {
+            // echo !($model->imageFile);
+            // die();
+            if( empty($model->imageFile) ){            
+                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                $model->file=$model->upload();
+            }
+
             $model=$this->save_customize($model);
-            $model->save();
+            $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
