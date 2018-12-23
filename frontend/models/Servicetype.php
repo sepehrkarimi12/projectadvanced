@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -9,13 +10,15 @@ use Yii;
  *
  * @property int $id
  * @property string $title
- * @property int $status
+ * @property int $is_deleted
  * @property int $creator_id
  * @property int $created_at
  * @property int $deletor_id
  * @property int $deleted_at
  *
  * @property Service[] $services
+ * @property User $creator
+ * @property User $deletor
  */
 class Servicetype extends \yii\db\ActiveRecord
 {
@@ -34,9 +37,11 @@ class Servicetype extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['status', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
+            [['is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
             [['title'], 'string', 'max' => 100],
             [['title'], 'unique'],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['deletor_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deletor_id' => 'id']],
         ];
     }
 
@@ -48,7 +53,7 @@ class Servicetype extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
-            'status' => Yii::t('app', 'Status'),
+            'is_deleted' => Yii::t('app', 'Is Deleted'),
             'creator_id' => Yii::t('app', 'Creator ID'),
             'created_at' => Yii::t('app', 'Created At'),
             'deletor_id' => Yii::t('app', 'Deletor ID'),
@@ -62,5 +67,21 @@ class Servicetype extends \yii\db\ActiveRecord
     public function getServices()
     {
         return $this->hasMany(Service::className(), ['type_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreator()
+    {
+        return $this->hasOne(User::className(), ['id' => 'creator_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDeletor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'deletor_id']);
     }
 }
