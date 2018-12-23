@@ -48,7 +48,7 @@ $script = <<< JS
 
 $('#typeId').change(function(){
     var typeId = $(this).val();
-    $.get('index.php?r=network/get', { id : typeId }, function(data){
+    $.get('index.php?r=network/get-network-type', { id : typeId }, function(data){
         var data = $.parseJSON(data);
         alert(data);
     });

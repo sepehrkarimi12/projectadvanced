@@ -135,7 +135,7 @@ class NetworkController extends Zcontroller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    public function actionGet($id)
+    public function actionGetNetworkType($id)
     {
         $model = $this->findModel($id);
         echo Json::encode($model);
