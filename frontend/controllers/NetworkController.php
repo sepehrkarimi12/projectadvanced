@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Networktype;
-use frontend\models\searchs\NetworktypeSearch;
-use common\components\Zcontroller;
+use frontend\models\Network;
+use frontend\models\searchs\NetworkSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * NetworktypeController implements the CRUD actions for Networktype model.
+ * NetworkController implements the CRUD actions for Network model.
  */
-class NetworktypeController extends Zcontroller
+class NetworkController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class NetworktypeController extends Zcontroller
     }
 
     /**
-     * Lists all Networktype models.
+     * Lists all Network models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new NetworktypeSearch();
+        $searchModel = new NetworkSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class NetworktypeController extends Zcontroller
     }
 
     /**
-     * Displays a single Networktype model.
+     * Displays a single Network model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,18 +58,15 @@ class NetworktypeController extends Zcontroller
     }
 
     /**
-     * Creates a new Networktype model.
+     * Creates a new Network model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Networktype();
+        $model = new Network();
 
-        if ($model->load(Yii::$app->request->post())) {
-            // echo $model->ip;die();
-            $model=$this->save_customize($model);
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -79,7 +76,7 @@ class NetworktypeController extends Zcontroller
     }
 
     /**
-     * Updates an existing Networktype model.
+     * Updates an existing Network model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -99,7 +96,7 @@ class NetworktypeController extends Zcontroller
     }
 
     /**
-     * Deletes an existing Networktype model.
+     * Deletes an existing Network model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,23 +104,21 @@ class NetworktypeController extends Zcontroller
      */
     public function actionDelete($id)
     {
-        $model=$this->findModel($id);
-        $model=$this->delete_customize($model);
-        $model->save();
-        
+        $this->findModel($id)->delete();
+
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Networktype model based on its primary key value.
+     * Finds the Network model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Networktype the loaded model
+     * @return Network the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Networktype::findOne($id)) !== null) {
+        if (($model = Network::findOne($id)) !== null) {
             return $model;
         }
 

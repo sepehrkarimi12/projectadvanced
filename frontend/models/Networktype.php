@@ -37,7 +37,7 @@ class Networktype extends \yii\db\ActiveRecord
     {
         return [
             [['title'], 'required'],
-            [['is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
+            [['is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at', 'need_ip'], 'integer'],
             [['title'], 'string', 'max' => 100],
             [['title'], 'unique'],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
@@ -58,6 +58,7 @@ class Networktype extends \yii\db\ActiveRecord
             'created_at' => Yii::t('app', 'Created At'),
             'deletor_id' => Yii::t('app', 'Deletor ID'),
             'deleted_at' => Yii::t('app', 'Deleted At'),
+            'need_ip' => Yii::t('app', 'Need IP'),
         ];
     }
 

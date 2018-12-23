@@ -4,20 +4,20 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\searchs\NetworktypeSearch */
+/* @var $searchModel frontend\models\searchs\NetworkSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Networktypes');
+$this->title = Yii::t('app', 'Networks');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="networktype-index">
+<div class="network-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Networktype'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Network'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -27,21 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            'title',
-            // 'is_deleted',
-            [
-                'attribute'=>'creator_id',
-                'value'=>function($data){
-                    return $data->creator->username;
-                }
-            ],
-            [
-                'attribute'=>'need_ip',
-                'value'=>function($data){
-                    return $data->need_ip ? 'Yes' : 'No';
-                }
-            ],
-            // 'created_at',
+            'name',
+            'address',
+            'type_id',
+            'ip_address',
+            //'is_deleted',
+            //'creator_id',
+            //'created_at',
             //'deletor_id',
             //'deleted_at',
 

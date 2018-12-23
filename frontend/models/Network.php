@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -12,12 +13,14 @@ use Yii;
  * @property string $address
  * @property int $type_id
  * @property string $ip_address
- * @property int $status
+ * @property int $is_deleted
  * @property int $creator_id
  * @property int $created_at
  * @property int $deletor_id
  * @property int $deleted_at
  *
+ * @property User $creator
+ * @property User $deletor
  * @property Networktype $type
  * @property Radio[] $radios
  * @property Service[] $services
@@ -39,10 +42,12 @@ class Network extends \yii\db\ActiveRecord
     {
         return [
             [['name', 'address', 'type_id'], 'required'],
-            [['type_id', 'status', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
+            [['type_id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 200],
             [['ip_address'], 'string', 'max' => 15],
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['deletor_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deletor_id' => 'id']],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Networktype::className(), 'targetAttribute' => ['type_id' => 'id']],
         ];
     }
@@ -58,12 +63,28 @@ class Network extends \yii\db\ActiveRecord
             'address' => Yii::t('app', 'Address'),
             'type_id' => Yii::t('app', 'Type ID'),
             'ip_address' => Yii::t('app', 'Ip Address'),
-            'status' => Yii::t('app', 'Status'),
+            'is_deleted' => Yii::t('app', 'Is Deleted'),
             'creator_id' => Yii::t('app', 'Creator ID'),
             'created_at' => Yii::t('app', 'Created At'),
             'deletor_id' => Yii::t('app', 'Deletor ID'),
             'deleted_at' => Yii::t('app', 'Deleted At'),
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreator()
+    {
+        return $this->hasOne(User::className(), ['id' => 'creator_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDeletor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'deletor_id']);
     }
 
     /**

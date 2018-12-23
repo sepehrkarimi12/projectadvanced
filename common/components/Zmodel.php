@@ -5,8 +5,11 @@ use yii\helpers\ArrayHelper;
  
 abstract class Zmodel extends \yii\db\ActiveRecord
 {
+    // is deleted or not
 	public static $active = 1;
-	// public static $inActive = 1;
+
+    // need ip or not
+    public static $ip = 1;
 
 	public static function getAllCustomers()
     {
