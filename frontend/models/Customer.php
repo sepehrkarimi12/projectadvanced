@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\User;
 use Yii;
 
 /**
@@ -21,9 +22,11 @@ use Yii;
  * @property int $deleted_at
  *
  * @property Comment[] $comments
+ * @property User $creator
+ * @property User $deletor
  * @property Service[] $services
  */
-class Customer extends \yii\db\ActiveRecord
+class Customer extends \common\components\Zmodel
 {
     /**
      * {@inheritdoc}
@@ -43,8 +46,14 @@ class Customer extends \yii\db\ActiveRecord
             [['is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
             [['fname', 'lname'], 'string', 'max' => 50],
             [['address'], 'string', 'max' => 200],
+
             [['email'], 'string', 'max' => 60],
-            [['phone', 'mobile'], 'string', 'max' => 11],
+            ['email','email'],
+            [['phone', 'mobile'], 'string','min'=>8, 'max' => 11],
+            [['phone', 'mobile'],'integer','message'=>'enter correct phone number'],
+
+            [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
+            [['deletor_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deletor_id' => 'id']],
         ];
     }
 
@@ -62,7 +71,7 @@ class Customer extends \yii\db\ActiveRecord
             'phone' => Yii::t('app', 'Phone'),
             'mobile' => Yii::t('app', 'Mobile'),
             'is_deleted' => Yii::t('app', 'Is Deleted'),
-            'creator_id' => Yii::t('app', 'Creator ID'),
+            'creator_id' => Yii::t('app', 'Creator'),
             'created_at' => Yii::t('app', 'Created At'),
             'deletor_id' => Yii::t('app', 'Deletor ID'),
             'deleted_at' => Yii::t('app', 'Deleted At'),
@@ -75,6 +84,22 @@ class Customer extends \yii\db\ActiveRecord
     public function getComments()
     {
         return $this->hasMany(Comment::className(), ['customer_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCreator()
+    {
+        return $this->hasOne(User::className(), ['id' => 'creator_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getDeletor()
+    {
+        return $this->hasOne(User::className(), ['id' => 'deletor_id']);
     }
 
     /**

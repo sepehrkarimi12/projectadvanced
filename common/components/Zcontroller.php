@@ -4,7 +4,7 @@ use yii\web\Controller;
 use frontend\models\Customer;
 use Yii;
 
-class Zcontroller extends Controller
+abstract class Zcontroller extends Controller
 {
 
 	public function save_customize($model)

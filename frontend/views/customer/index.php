@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'fname',
             'lname',
             'address',
@@ -39,7 +39,18 @@ $this->params['breadcrumbs'][] = $this->title;
             //'deletor_id',
             //'deleted_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            // ['class' => 'yii\grid\ActionColumn'],
+
+            ['class' => 'yii\grid\ActionColumn',
+                'buttons' => [
+                    'additional_icon' => function ($url, $model, $key) {
+                        return Html::a ( '<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span> ', ['comment/create', 'id' => $model->id, 'lname' => $model->lname] );
+                    },
+                ],
+                'template' => '{update} {view} {delete} {additional_icon}'
+
+
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

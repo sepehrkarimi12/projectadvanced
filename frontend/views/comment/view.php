@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Customer */
+/* @var $model frontend\models\Comment */
 
-$this->title = $model->lname;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Customers'), 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Comments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="customer-view">
+<div class="comment-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,23 +29,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            // 'id',
-            'fname',
-            'lname',
-            'address',
-            'email:email',
-            'phone',
-            'mobile',
-            // 'is_deleted',
-            [
-                'attribute' => 'creator_id',
-                'value' => function($data){
-                    return $data->creator->username;
-                }
-            ],
-            'created_at:date',
-            // 'deletor_id',
-            // 'deleted_at',
+            'id',
+            'text:ntext',
+            'file',
+            'customer_id',
+            'is_deleted',
+            'creator_id',
+            'created_at',
+            'deletor_id',
+            'deleted_at',
         ],
     ]) ?>
 

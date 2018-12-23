@@ -4,13 +4,12 @@ namespace frontend\models\searchs;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Customer;
-use common\components\Zmodel;
+use frontend\models\Comment;
 
 /**
- * CustomerSearch represents the model behind the search form of `frontend\models\Customer`.
+ * CommentSearch represents the model behind the search form of `frontend\models\Comment`.
  */
-class CustomerSearch extends Customer
+class CommentSearch extends Comment
 {
     /**
      * {@inheritdoc}
@@ -18,8 +17,8 @@ class CustomerSearch extends Customer
     public function rules()
     {
         return [
-            [['id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
-            [['fname', 'lname', 'address', 'email', 'phone', 'mobile'], 'safe'],
+            [['id', 'customer_id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
+            [['text', 'file'], 'safe'],
         ];
     }
 
@@ -41,7 +40,7 @@ class CustomerSearch extends Customer
      */
     public function search($params)
     {
-        $query = Customer::find()->where(['!=','is_deleted',Zmodel::$active]);
+        $query = Comment::find();
 
         // add conditions that should always apply here
 
@@ -60,6 +59,7 @@ class CustomerSearch extends Customer
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'customer_id' => $this->customer_id,
             'is_deleted' => $this->is_deleted,
             'creator_id' => $this->creator_id,
             'created_at' => $this->created_at,
@@ -67,12 +67,8 @@ class CustomerSearch extends Customer
             'deleted_at' => $this->deleted_at,
         ]);
 
-        $query->andFilterWhere(['like', 'fname', $this->fname])
-            ->andFilterWhere(['like', 'lname', $this->lname])
-            ->andFilterWhere(['like', 'address', $this->address])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'phone', $this->phone])
-            ->andFilterWhere(['like', 'mobile', $this->mobile]);
+        $query->andFilterWhere(['like', 'text', $this->text])
+            ->andFilterWhere(['like', 'file', $this->file]);
 
         return $dataProvider;
     }
