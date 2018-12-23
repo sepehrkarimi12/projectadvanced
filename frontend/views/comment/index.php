@@ -26,13 +26,25 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'text:ntext',
-            'file',
-            'customer_id',
-            'is_deleted',
+            // 'file',
+            [
+                'attribute' => 'customer_id',
+                'value' => function($data){
+                    return $data->customer->lname;
+                }
+            ],
+            // 'is_deleted',
+            [
+                'attribute' => 'creator_id',
+                'value' => function($data){
+                    return $data->creator->username;
+                }
+            ],
+            // 'is_deleted',
             //'creator_id',
-            //'created_at',
+            // 'created_at:date',
             //'deletor_id',
             //'deleted_at',
 

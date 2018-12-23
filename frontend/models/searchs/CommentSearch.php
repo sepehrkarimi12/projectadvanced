@@ -3,6 +3,7 @@
 namespace frontend\models\searchs;
 
 use yii\base\Model;
+use common\components\Zmodel;
 use yii\data\ActiveDataProvider;
 use frontend\models\Comment;
 
@@ -17,8 +18,8 @@ class CommentSearch extends Comment
     public function rules()
     {
         return [
-            [['id', 'customer_id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
-            [['text', 'file'], 'safe'],
+            [['id', 'is_deleted', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
+            [['text', 'customer_id', 'creator_id'], 'safe'],
         ];
     }
 
@@ -40,7 +41,7 @@ class CommentSearch extends Comment
      */
     public function search($params)
     {
-        $query = Comment::find();
+        $query = Comment::find()->where(['!=','is_deleted',Zmodel::$active]);
 
         // add conditions that should always apply here
 
@@ -56,19 +57,21 @@ class CommentSearch extends Comment
             return $dataProvider;
         }
 
+        $query->joinWith('customer')->where(['!=','customer.is_deleted',Zmodel::$active]);
+        $query->joinWith('creator');
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'customer_id' => $this->customer_id,
             'is_deleted' => $this->is_deleted,
-            'creator_id' => $this->creator_id,
             'created_at' => $this->created_at,
             'deletor_id' => $this->deletor_id,
             'deleted_at' => $this->deleted_at,
         ]);
 
         $query->andFilterWhere(['like', 'text', $this->text])
-            ->andFilterWhere(['like', 'file', $this->file]);
+            ->andFilterWhere(['like', 'customer.lname', $this->customer_id])
+            ->andFilterWhere(['like', 'user.username', $this->creator_id]);
 
         return $dataProvider;
     }

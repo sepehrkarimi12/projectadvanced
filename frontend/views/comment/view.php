@@ -6,7 +6,7 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Comment */
 
-$this->title = $model->id;
+$this->title = $model->customer->lname;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Comments'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
@@ -29,15 +29,26 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            // 'id',
             'text:ntext',
             'file',
-            'customer_id',
-            'is_deleted',
-            'creator_id',
-            'created_at',
-            'deletor_id',
-            'deleted_at',
+            // 'customer_id',
+            [
+                'attribute' => 'customer_id',
+                'value' => function($data){
+                    return $data->customer->lname;
+                }
+            ],
+            // 'is_deleted',
+            [
+                'attribute' => 'creator_id',
+                'value' => function($data){
+                    return $data->creator->username;
+                }
+            ],
+            'created_at:date',
+            // 'deletor_id',
+            // 'deleted_at',
         ],
     ]) ?>
 

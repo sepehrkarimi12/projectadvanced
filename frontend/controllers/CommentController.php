@@ -5,14 +5,16 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Comment;
 use frontend\models\searchs\CommentSearch;
-use yii\web\Controller;
+// use yii\web\Controller;
+use common\components\Zmodel;
+use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * CommentController implements the CRUD actions for Comment model.
  */
-class CommentController extends Controller
+class CommentController extends ZController
 {
     /**
      * {@inheritdoc}
@@ -65,13 +67,28 @@ class CommentController extends Controller
     public function actionCreate()
     {
         $model = new Comment();
+        $customers=[];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if( isset($_GET['id']) )
+        {
+            $model->customer_id = $_GET['id'];
+        }
+        else
+        {
+            $customers=Zmodel::getAllCustomers();
+        }
+        // print_r($customers);
+        // die();
+
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model=$this->save_customize($model);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'customers' => $customers,
         ]);
     }
 
@@ -104,7 +121,12 @@ class CommentController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        // $this->findModel($id)->delete();
+
+        // return $this->redirect(['index']);
+        $model=$this->findModel($id);
+        $model=$this->delete_customize($model);
+        $model->save();
 
         return $this->redirect(['index']);
     }

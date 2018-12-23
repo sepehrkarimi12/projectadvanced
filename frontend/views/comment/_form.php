@@ -1,5 +1,6 @@
 <?php
 
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -12,16 +13,18 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
+
     <?php 
-    if ( isset($_GET['id']) )
-    {
-        $model->customer_id=$_GET['id'];
-        echo("<h3>create commetn for <b>$_GET[lname]</b></h3>");
-    }
-    else
-    {
-        echo $form->field($model, 'customer_id')->textInput();
-    }
+        if(  !isset($_GET['id']) ) :
+            echo $form->field($model, 'customer_id')->widget(Select2::classname(), [
+                'data' => $customers,
+                'language' => 'en',
+                'options' => ['placeholder' => 'Select customer name ...'],
+                'pluginOptions' => [
+                    'allowClear' => true
+                ],
+            ]);
+        endif;
     ?>
 
     <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>

@@ -6,10 +6,10 @@ use yii\helpers\Html;
 /* @var $model frontend\models\Comment */
 
 $this->title = Yii::t('app', 'Update Comment: {name}', [
-    'name' => $model->id,
+    'name' => $model->customer->lname,
 ]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Comments'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->id, 'url' => ['view', 'id' => $model->id]];
+$this->params['breadcrumbs'][] = ['label' => $model->customer->lname, 'url' => ['view', 'id' => $model->id]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="comment-update">
