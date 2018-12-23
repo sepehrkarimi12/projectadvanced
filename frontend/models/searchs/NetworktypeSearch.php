@@ -18,8 +18,8 @@ class NetworktypeSearch extends Networktype
     public function rules()
     {
         return [
-            [['id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
-            [['title'], 'safe'],
+            [['id', 'is_deleted', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
+            [['title', 'creator_id'], 'safe'],
         ];
     }
 
@@ -57,17 +57,20 @@ class NetworktypeSearch extends Networktype
             return $dataProvider;
         }
 
+        $query->joinWith('creator');
+
+
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'is_deleted' => $this->is_deleted,
-            'creator_id' => $this->creator_id,
             'created_at' => $this->created_at,
             'deletor_id' => $this->deletor_id,
             'deleted_at' => $this->deleted_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title]);
+        $query->andFilterWhere(['like', 'title', $this->title])
+              ->andFilterWhere(['like', 'user.username', $this->creator_id]);
 
         return $dataProvider;
     }

@@ -54,7 +54,7 @@ class Networktype extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
             'is_deleted' => Yii::t('app', 'Is Deleted'),
-            'creator_id' => Yii::t('app', 'Creator ID'),
+            'creator_id' => Yii::t('app', 'Creator Name'),
             'created_at' => Yii::t('app', 'Created At'),
             'deletor_id' => Yii::t('app', 'Deletor ID'),
             'deleted_at' => Yii::t('app', 'Deleted At'),
