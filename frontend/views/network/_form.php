@@ -9,7 +9,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="network-form">
+<div class="network-form" id="networkFormId">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -31,7 +31,6 @@ use yii\widgets\ActiveForm;
         ]);
     ?>
 
-    <?= $form->field($model, 'ip_address')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
@@ -50,10 +49,15 @@ $('#typeId').change(function(){
     var typeId = $(this).val();
     $.get('index.php?r=network/get-network-type', { id : typeId }, function(data){
         var data = $.parseJSON(data);
-        alert(data);
+        
+        if (data.is_need=1)
+        {
+            alert(data.is_need);
+        }   
     });
 });
 
 JS;
 $this->registerJS($script);
 ?>
+

@@ -4,10 +4,12 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Network;
+use frontend\models\Networktype;
 use frontend\models\searchs\NetworkSearch;
 use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\Json;
 
 /**
  * NetworkController implements the CRUD actions for Network model.
@@ -137,7 +139,8 @@ class NetworkController extends Zcontroller
 
     public function actionGetNetworkType($id)
     {
-        $model = $this->findModel($id);
+        $model = Networktype::findOne($id);
+        // die();
         echo Json::encode($model);
     }
 }
