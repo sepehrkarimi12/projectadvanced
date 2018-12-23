@@ -5,14 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Network;
 use frontend\models\searchs\NetworkSearch;
-use yii\web\Controller;
+use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
  * NetworkController implements the CRUD actions for Network model.
  */
-class NetworkController extends Controller
+class NetworkController extends Zcontroller
 {
     /**
      * {@inheritdoc}
@@ -65,13 +65,18 @@ class NetworkController extends Controller
     public function actionCreate()
     {
         $model = new Network();
+        $networktypes = $model->getAllNetworktypes();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model=$this->save_customize($model);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'networktypes' => $networktypes,
         ]);
     }
 
@@ -85,6 +90,8 @@ class NetworkController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $networktypes = $model->getAllNetworktypes();
+
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -92,6 +99,7 @@ class NetworkController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+             'networktypes' => $networktypes,
         ]);
     }
 
@@ -104,7 +112,9 @@ class NetworkController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        $model=$this->delete_customize($model);
+        $model->save();
 
         return $this->redirect(['index']);
     }

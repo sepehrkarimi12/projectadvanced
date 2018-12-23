@@ -4,6 +4,8 @@ namespace frontend\models;
 
 use common\models\User;
 use Yii;
+use common\components\Zmodel;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "network".
@@ -61,7 +63,7 @@ class Network extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
             'address' => Yii::t('app', 'Address'),
-            'type_id' => Yii::t('app', 'Type ID'),
+            'type_id' => Yii::t('app', 'Type Name'),
             'ip_address' => Yii::t('app', 'Ip Address'),
             'is_deleted' => Yii::t('app', 'Is Deleted'),
             'creator_id' => Yii::t('app', 'Creator ID'),
@@ -110,4 +112,12 @@ class Network extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Service::className(), ['network_id' => 'id']);
     }
+
+    public function getAllNetworktypes()
+    {
+        $all=Networktype::find()->where(['!=','is_deleted',Zmodel::$active])->all();
+        $all=ArrayHelper::map($all,'id','title');
+        return $all;
+    }
+
 }

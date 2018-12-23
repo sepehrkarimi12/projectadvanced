@@ -29,7 +29,12 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'id',
             'name',
             'address',
-            'type_id',
+            [
+                'attribute' => 'type_id',
+                'value' => function($data){
+                    return $data->type->title;
+                }
+            ],
             'ip_address',
             //'is_deleted',
             //'creator_id',
