@@ -67,6 +67,7 @@ class NetworkController extends Zcontroller
     public function actionCreate()
     {
         $model = new Network();
+        $model->scenario = Network::SCENARIO_WITH_IP;
         $networktypes = $model->getAllNetworktypes();
 
 

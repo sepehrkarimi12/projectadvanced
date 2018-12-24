@@ -31,6 +31,7 @@ use yii\widgets\ActiveForm;
         ]);
     ?>
 
+    <?= $form->field($model, 'ip_address')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
@@ -52,7 +53,7 @@ $('#typeId').change(function(){
         
         if (data.is_need=1)
         {
-            alert(data.is_need);
+            alert(data.id);
         }   
     });
 });

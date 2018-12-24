@@ -29,6 +29,8 @@ use yii\helpers\ArrayHelper;
  */
 class Network extends \yii\db\ActiveRecord
 {
+    const SCENARIO_WITH_IP = 'withip';
+    const SCENARIO_WITHOUT_IP = 'withoutip';
     /**
      * {@inheritdoc}
      */
@@ -43,7 +45,8 @@ class Network extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'address', 'type_id'], 'required'],
+            [['name', 'address', 'type_id', 'ip_address'], 'required', 'on' => self::SCENARIO_WITH_IP],
+            [['name', 'address', 'type_id'], 'required', 'on' => self::SCENARIO_WITHOUT_IP],
             [['type_id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 200],
