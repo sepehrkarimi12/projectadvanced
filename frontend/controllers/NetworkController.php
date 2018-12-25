@@ -4,12 +4,10 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Network;
-use frontend\models\Networktype;
 use frontend\models\searchs\NetworkSearch;
 use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\helpers\Json;
 
 /**
  * NetworkController implements the CRUD actions for Network model.
@@ -67,14 +65,19 @@ class NetworkController extends Zcontroller
     public function actionCreate()
     {
         $model = new Network();
-        $model->scenario = Network::SCENARIO_WITH_IP;
+        // $model->scenario = Network::SCENARIO_WITH_IP;
         $networktypes = $model->getAllNetworktypes();
 
 
         if ($model->load(Yii::$app->request->post())) {
-            $model=$this->save_customize($model);
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->id]);
+
+            // In model we have to check NetworkType need IP or not so we use validate() method 
+            if($model->validate()){
+                $model=$this->save_customize($model);
+                $model->save();
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+
         }
 
         return $this->render('create', [
@@ -138,10 +141,4 @@ class NetworkController extends Zcontroller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    public function actionGetNetworkType($id)
-    {
-        $model = Networktype::findOne($id);
-        // die();
-        echo Json::encode($model);
-    }
 }

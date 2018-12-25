@@ -27,10 +27,10 @@ use yii\helpers\ArrayHelper;
  * @property Radio[] $radios
  * @property Service[] $services
  */
-class Network extends \yii\db\ActiveRecord
+class Network extends Zmodel
 {
-    const SCENARIO_WITH_IP = 'withip';
-    const SCENARIO_WITHOUT_IP = 'withoutip';
+    // const SCENARIO_WITH_IP = 'withip';
+    // const SCENARIO_WITHOUT_IP = 'withoutip';
     /**
      * {@inheritdoc}
      */
@@ -45,8 +45,15 @@ class Network extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'address', 'type_id', 'ip_address'], 'required', 'on' => self::SCENARIO_WITH_IP],
-            [['name', 'address', 'type_id'], 'required', 'on' => self::SCENARIO_WITHOUT_IP],
+            [['name', 'address', 'type_id'],'required',],
+            [
+                ['ip_address'], 'required', 'when' => function($model){
+                    $networkTypeModel = Networktype::findOne($model->type_id);
+                    return $networkTypeModel->need_ip==Zmodel::$ip;
+                 },
+                 'enableClientValidation' => false,
+                 'message' => 'The Network Type that you choosed, needs IP'
+            ],
             [['type_id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 200],

@@ -41,24 +41,3 @@ use yii\widgets\ActiveForm;
 
 </div>
 
-
-<!-- this network need Ip or not -->
-<?php 
-$script = <<< JS
-
-$('#typeId').change(function(){
-    var typeId = $(this).val();
-    $.get('index.php?r=network/get-network-type', { id : typeId }, function(data){
-        var data = $.parseJSON(data);
-        
-        if (data.is_need=1)
-        {
-            alert(data.id);
-        }   
-    });
-});
-
-JS;
-$this->registerJS($script);
-?>
-
