@@ -14,7 +14,7 @@ class m181222_094934_networktype extends Migration
     {
         $this->createTable('networktype',[
             'id' => $this->primaryKey(),
-            'title' => $this->string(100)->notNull()->unique(),
+            'title' => $this->string(100)->notNull(),
             
             'is_deleted' => $this->smallInteger(),
             'need_ip' => $this->smallInteger(),

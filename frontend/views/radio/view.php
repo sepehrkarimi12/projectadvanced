@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Network */
+/* @var $model frontend\models\Radio */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Networks'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Radios'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="network-view">
+<div class="radio-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,26 +29,16 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            // 'id',
+            'id',
             'name',
-            'address',
-            [
-                'attribute' => 'type_id',
-                'value' => function($data){
-                    return $data->type->title;
-                }
-            ],
-            'ip_address',
-            // 'is_deleted',
-            [
-                'attribute' => 'creator_id',
-                'value' => function($data){
-                    return $data->creator->username;
-                }
-            ],
-            'created_at:date',
-            // 'deletor_id',
-            // 'deleted_at',
+            'model',
+            'serial',
+            'network_id',
+            'is_deleted',
+            'creator_id',
+            'created_at',
+            'deletor_id',
+            'deleted_at',
         ],
     ]) ?>
 

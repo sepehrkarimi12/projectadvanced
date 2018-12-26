@@ -39,7 +39,6 @@ class Networktype extends \yii\db\ActiveRecord
             [['title'], 'required'],
             [['is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at', 'need_ip'], 'integer'],
             [['title'], 'string', 'max' => 100],
-            [['title'], 'unique'],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
             [['deletor_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deletor_id' => 'id']],
         ];
