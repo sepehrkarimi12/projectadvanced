@@ -3,19 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Comment;
-use frontend\models\searchs\CommentSearch;
-// use yii\web\Controller;
-use common\components\Zmodel;
-use common\components\Zcontroller;
+use frontend\models\User;
+use frontend\models\searchs\UserSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\UploadedFile;
 
 /**
- * CommentController implements the CRUD actions for Comment model.
+ * UserController implements the CRUD actions for User model.
  */
-class CommentController extends ZController
+class UserController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -33,12 +30,12 @@ class CommentController extends ZController
     }
 
     /**
-     * Lists all Comment models.
+     * Lists all User models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CommentSearch();
+        $searchModel = new UserSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -48,7 +45,7 @@ class CommentController extends ZController
     }
 
     /**
-     * Displays a single Comment model.
+     * Displays a single User model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -61,50 +58,25 @@ class CommentController extends ZController
     }
 
     /**
-     * Creates a new Comment model.
+     * Creates a new User model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Comment();
-        $customers=[];
-        $customer_name='';
+        $model = new User();
 
-        if( isset($_GET['id']) && isset($_GET['name']) )
-        {
-            $model->customer_id = $_GET['id'];
-            $customer_name = $_GET['name'];
-        }
-        else
-        {
-            $customers=Zmodel::getAllCustomers();
-        }
-        // print_r($customers);
-        // die();
-
-        if ($model->load(Yii::$app->request->post()) ) {
-            // echo !($model->imageFile);
-            // die();
-            if( empty($model->imageFile) ){            
-                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                $model->file=$model->upload();
-            }
-
-            $model=$this->save_customize($model);
-            $model->save(false);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'customers' => $customers,
-            'customer_name' => $customer_name,
         ]);
     }
 
     /**
-     * Updates an existing Comment model.
+     * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -124,7 +96,7 @@ class CommentController extends ZController
     }
 
     /**
-     * Deletes an existing Comment model.
+     * Deletes an existing User model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -132,26 +104,21 @@ class CommentController extends ZController
      */
     public function actionDelete($id)
     {
-        // $this->findModel($id)->delete();
-
-        // return $this->redirect(['index']);
-        $model=$this->findModel($id);
-        $model=$this->delete_customize($model);
-        $model->save();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Comment model based on its primary key value.
+     * Finds the User model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Comment the loaded model
+     * @return User the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Comment::findOne($id)) !== null) {
+        if (($model = User::findOne($id)) !== null) {
             return $model;
         }
 

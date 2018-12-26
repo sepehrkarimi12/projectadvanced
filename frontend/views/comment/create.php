@@ -11,7 +11,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="comment-create">
 
-    <h1><?= Html::encode($this->title) ?> For :</h1>
+    <h1><?= Html::encode($this->title) ?></h1>
+    <h3><?= $customer_name ? 'For : '.$customer_name : '' ?></h3>
 
     <?= $this->render('_form', [
         'model' => $model,

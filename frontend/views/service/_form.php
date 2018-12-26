@@ -55,7 +55,7 @@ use common\components\Zmodel;
         ]);
     ?>
 
-    <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'address')->textArea(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'ppoe_username')->textInput(['maxlength' => true]) ?>
 

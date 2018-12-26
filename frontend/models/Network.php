@@ -76,7 +76,7 @@ class Network extends Zmodel
             'type_id' => Yii::t('app', 'Type Name'),
             'ip_address' => Yii::t('app', 'Ip Address'),
             'is_deleted' => Yii::t('app', 'Is Deleted'),
-            'creator_id' => Yii::t('app', 'Creator ID'),
+            'creator_id' => Yii::t('app', 'Creator Name'),
             'created_at' => Yii::t('app', 'Created At'),
             'deletor_id' => Yii::t('app', 'Deletor ID'),
             'deleted_at' => Yii::t('app', 'Deleted At'),

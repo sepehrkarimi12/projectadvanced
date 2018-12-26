@@ -4,13 +4,12 @@ namespace frontend\models\searchs;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Networktype;
-use common\components\Zmodel;
+use frontend\models\User;
 
 /**
- * NetworktypeSearch represents the model behind the search form of `frontend\models\Networktype`.
+ * UserSearch represents the model behind the search form of `frontend\models\User`.
  */
-class NetworktypeSearch extends Networktype
+class UserSearch extends User
 {
     /**
      * {@inheritdoc}
@@ -18,8 +17,8 @@ class NetworktypeSearch extends Networktype
     public function rules()
     {
         return [
-            [['id', 'is_deleted', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
-            [['title', 'creator_id','need_ip'], 'safe'],
+            [['id', 'status', 'created_at', 'updated_at'], 'integer'],
+            [['username', 'auth_key', 'password_hash', 'password_reset_token', 'email'], 'safe'],
         ];
     }
 
@@ -41,7 +40,7 @@ class NetworktypeSearch extends Networktype
      */
     public function search($params)
     {
-        $query = Networktype::find()->where(['!=','is_deleted',Zmodel::$active]);
+        $query = User::find();
 
         // add conditions that should always apply here
 
@@ -57,21 +56,19 @@ class NetworktypeSearch extends Networktype
             return $dataProvider;
         }
 
-        $query->joinWith('creator');
-
-
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'is_deleted' => $this->is_deleted,
+            'status' => $this->status,
             'created_at' => $this->created_at,
-            'deletor_id' => $this->deletor_id,
-            'deleted_at' => $this->deleted_at,
+            'updated_at' => $this->updated_at,
         ]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-              ->andFilterWhere(['like', 'user.username', $this->creator_id])
-              ->andFilterWhere(['like', 'need_ip', $this->need_ip]);
+        $query->andFilterWhere(['like', 'username', $this->username])
+            ->andFilterWhere(['like', 'auth_key', $this->auth_key])
+            ->andFilterWhere(['like', 'password_hash', $this->password_hash])
+            ->andFilterWhere(['like', 'password_reset_token', $this->password_reset_token])
+            ->andFilterWhere(['like', 'email', $this->email]);
 
         return $dataProvider;
     }

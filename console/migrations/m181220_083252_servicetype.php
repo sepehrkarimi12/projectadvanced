@@ -13,7 +13,7 @@ class m181220_083252_servicetype extends Migration
     {
         $this->createTable('servicetype',[
             'id' => $this->primaryKey(),
-            'title' => $this->string(100)->notNull()->unique(),
+            'title' => $this->string(100)->notNull(),
             
             'is_deleted' => $this->smallInteger(),
 
