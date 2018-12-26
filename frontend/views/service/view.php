@@ -29,19 +29,39 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
+            // 'id',
             'name',
-            'customer_id',
-            'type_id',
-            'network_id',
+            [
+                'attribute' => 'customer_id',
+                'value' => function($model){
+                    return $model->customer->fname.' '.$model->customer->lname;
+                }
+            ],
+            [
+                'attribute' => 'type_id',
+                'value' => function($model){
+                    return $model->type->title;
+                }
+            ],
+            [
+                'attribute' => 'network_id',
+                'value' => function($model){
+                    return $model->network->name;
+                }
+            ],
             'address',
             'ppoe_username',
             'ppoe_password',
-            'is_deleted',
-            'creator_id',
-            'created_at',
-            'deletor_id',
-            'deleted_at',
+            // 'is_deleted',
+            [
+                'attribute' => 'creator_id',
+                'value' => function($data){
+                    return $data->creator->username;
+                }
+            ],
+            'created_at:date',
+            // 'deletor_id',
+            // 'deleted_at',
         ],
     ]) ?>
 

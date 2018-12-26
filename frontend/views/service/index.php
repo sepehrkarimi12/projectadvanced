@@ -26,12 +26,27 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'id',
+            // 'id',
             'name',
-            'customer_id',
-            'type_id',
-            'network_id',
-            //'address',
+            [
+                'attribute' => 'customer_id',
+                'value' => function($model){
+                    return $model->customer->fname.' '.$model->customer->lname;
+                }
+            ],
+            [
+                'attribute' => 'type_id',
+                'value' => function($model){
+                    return $model->type->title;
+                }
+            ],
+            [
+                'attribute' => 'network_id',
+                'value' => function($model){
+                    return $model->network->name;
+                }
+            ],
+            'address',
             //'ppoe_username',
             //'ppoe_password',
             //'is_deleted',

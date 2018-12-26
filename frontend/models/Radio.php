@@ -4,7 +4,6 @@ namespace frontend\models;
 
 use Yii;
 use common\models\User;
-use common\components\Zmodel;
 use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "radio".
@@ -24,7 +23,7 @@ use yii\helpers\ArrayHelper;
  * @property User $creator
  * @property User $deletor
  */
-class Radio extends \yii\db\ActiveRecord
+class Radio extends \common\components\Zmodel
 {
     /**
      * {@inheritdoc}
@@ -59,7 +58,7 @@ class Radio extends \yii\db\ActiveRecord
             'name' => Yii::t('app', 'Name'),
             'model' => Yii::t('app', 'Model'),
             'serial' => Yii::t('app', 'Serial'),
-            'network_id' => Yii::t('app', 'Network ID'),
+            'network_id' => Yii::t('app', 'Network Name'),
             'is_deleted' => Yii::t('app', 'Is Deleted'),
             'creator_id' => Yii::t('app', 'Creator ID'),
             'created_at' => Yii::t('app', 'Created At'),
@@ -90,12 +89,6 @@ class Radio extends \yii\db\ActiveRecord
     public function getDeletor()
     {
         return $this->hasOne(User::className(), ['id' => 'deletor_id']);
-    }
-
-    public function getAllNetworks()
-    {
-        $all=Network::find()->where(['!=','is_deleted',Zmodel::$active])->all();
-        return ArrayHelper::map($all,'id','name');
     }
 
 }

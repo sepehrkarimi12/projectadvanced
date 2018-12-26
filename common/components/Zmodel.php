@@ -1,6 +1,7 @@
 <?php
 namespace common\components;
 use frontend\models\Customer;
+use frontend\models\Network;
 use yii\helpers\ArrayHelper;
  
 abstract class Zmodel extends \yii\db\ActiveRecord
@@ -22,6 +23,12 @@ abstract class Zmodel extends \yii\db\ActiveRecord
             }
         );
         return $all;
+    }
+
+    public function getAllNetworks()
+    {
+        $all=Network::find()->where(['!=','is_deleted',Zmodel::$active])->all();
+        return ArrayHelper::map($all,'id','name');
     }
 }
 

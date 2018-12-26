@@ -4,7 +4,7 @@ namespace frontend\models;
 
 use Yii;
 use common\models\User;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "service".
  *
@@ -28,7 +28,7 @@ use common\models\User;
  * @property User $deletor
  * @property Servicetype $type
  */
-class Service extends \yii\db\ActiveRecord
+class Service extends \common\components\Zmodel
 {
     /**
      * {@inheritdoc}
@@ -64,9 +64,9 @@ class Service extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
-            'customer_id' => Yii::t('app', 'Customer ID'),
-            'type_id' => Yii::t('app', 'Type ID'),
-            'network_id' => Yii::t('app', 'Network ID'),
+            'customer_id' => Yii::t('app', 'Customer Name'),
+            'type_id' => Yii::t('app', 'Service Type Name'),
+            'network_id' => Yii::t('app', 'Network Name'),
             'address' => Yii::t('app', 'Address'),
             'ppoe_username' => Yii::t('app', 'Ppoe Username'),
             'ppoe_password' => Yii::t('app', 'Ppoe Password'),
@@ -116,5 +116,13 @@ class Service extends \yii\db\ActiveRecord
     public function getType()
     {
         return $this->hasOne(Servicetype::className(), ['id' => 'type_id']);
+    }
+
+    public function getAllServiceTypes()
+    {
+        $all=Servicetype::find()->where(['!=','is_deleted',parent::$active])->all();
+        // print_r(ArrayHelper::map($all,'id','title'));
+        // die();
+        return ArrayHelper::map($all,'id','title');
     }
 }

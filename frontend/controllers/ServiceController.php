@@ -5,14 +5,14 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Service;
 use frontend\models\searchs\ServiceSearch;
-use yii\web\Controller;
 use yii\web\NotFoundHttpException;
+use common\components\Zcontroller;
 use yii\filters\VerbFilter;
 
 /**
  * ServiceController implements the CRUD actions for Service model.
  */
-class ServiceController extends Controller
+class ServiceController extends Zcontroller
 {
     /**
      * {@inheritdoc}
@@ -65,13 +65,19 @@ class ServiceController extends Controller
     public function actionCreate()
     {
         $model = new Service();
+        $service_types=$model->getAllServiceTypes();
+        $networks=$model->getAllNetworks();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            $model=$this->save_customize($model);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
+            'service_types'=>$service_types,
+            'networks'=>$networks,
         ]);
     }
 
@@ -104,7 +110,9 @@ class ServiceController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        $model=$this->delete_customize($model);
+        $model->save();
 
         return $this->redirect(['index']);
     }
