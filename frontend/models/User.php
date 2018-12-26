@@ -34,6 +34,7 @@ use Yii;
  */
 class User extends \yii\db\ActiveRecord
 {
+    public $password;
     /**
      * {@inheritdoc}
      */
@@ -48,12 +49,14 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'], 'required'],
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'password'], 'required'],
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
             [['username'], 'unique'],
             [['email'], 'unique'],
+            [['email'], 'email'],
+            [['password'],'string','min'=>6 ],
             [['password_reset_token'], 'unique'],
         ];
     }
@@ -187,4 +190,21 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Servicetype::className(), ['deletor_id' => 'id']);
     }
+
+    public function save($runValidation=true,$attributeNames=true)
+    {
+        $user = new \common\models\User();
+        $user->username = $this->username;
+        $user->email = $this->email;
+        $user->status = $this->status ? 10 : 0;
+        $user->setPassword($this->password);
+        $user->generateAuthKey();
+        
+        if($user->save())
+        {
+            $this->id=$user->id;
+           return true;
+        }
+    }
+
 }
