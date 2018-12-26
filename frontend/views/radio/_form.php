@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Radio */
@@ -18,17 +19,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'serial')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'network_id')->textInput() ?>
-
-    <?= $form->field($model, 'is_deleted')->textInput() ?>
-
-    <?= $form->field($model, 'creator_id')->textInput() ?>
-
-    <?= $form->field($model, 'created_at')->textInput() ?>
-
-    <?= $form->field($model, 'deletor_id')->textInput() ?>
-
-    <?= $form->field($model, 'deleted_at')->textInput() ?>
+    <?php
+        echo $form->field($model, 'network_id')->widget(Select2::classname(), [
+            'data' => $networks,
+            'language' => 'en',
+            'options' => [
+                'placeholder' => 'Select network name ...',
+            ],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>

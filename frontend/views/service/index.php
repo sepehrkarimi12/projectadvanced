@@ -4,20 +4,20 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
-/* @var $searchModel frontend\models\searchs\RadioSearch */
+/* @var $searchModel frontend\models\searchs\ServiceSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Radios');
+$this->title = Yii::t('app', 'Services');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="radio-index">
+<div class="service-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Radio'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('app', 'Create Service'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?= GridView::widget([
@@ -26,17 +26,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            // 'id',
+            'id',
             'name',
-            'model',
-            'serial',
-            // 'network_id',
-            [
-                'attribute'=>'network_id',
-                'value'=>function($model){
-                    return $model->network->name;
-                }
-            ],
+            'customer_id',
+            'type_id',
+            'network_id',
+            //'address',
+            //'ppoe_username',
+            //'ppoe_password',
             //'is_deleted',
             //'creator_id',
             //'created_at',

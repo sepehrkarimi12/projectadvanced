@@ -4,13 +4,12 @@ namespace frontend\models\searchs;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use frontend\models\Radio;
-use common\components\Zmodel;
+use frontend\models\Service;
 
 /**
- * RadioSearch represents the model behind the search form of `frontend\models\Radio`.
+ * ServiceSearch represents the model behind the search form of `frontend\models\Service`.
  */
-class RadioSearch extends Radio
+class ServiceSearch extends Service
 {
     /**
      * {@inheritdoc}
@@ -18,8 +17,8 @@ class RadioSearch extends Radio
     public function rules()
     {
         return [
-            [['id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
-            [['name', 'model', 'serial', 'network_id'], 'safe'],
+            [['id', 'customer_id', 'type_id', 'network_id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
+            [['name', 'address', 'ppoe_username', 'ppoe_password'], 'safe'],
         ];
     }
 
@@ -41,7 +40,7 @@ class RadioSearch extends Radio
      */
     public function search($params)
     {
-        $query = Radio::find()->where(['!=','radio.is_deleted',Zmodel::$active]);
+        $query = Service::find();
 
         // add conditions that should always apply here
 
@@ -57,10 +56,12 @@ class RadioSearch extends Radio
             return $dataProvider;
         }
 
-        $query->joinWith('network')->onCondition(['!=','network.is_deleted',Zmodel::$active]);
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
+            'customer_id' => $this->customer_id,
+            'type_id' => $this->type_id,
+            'network_id' => $this->network_id,
             'is_deleted' => $this->is_deleted,
             'creator_id' => $this->creator_id,
             'created_at' => $this->created_at,
@@ -69,9 +70,9 @@ class RadioSearch extends Radio
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'model', $this->model])
-            ->andFilterWhere(['like', 'serial', $this->serial])
-            ->andFilterWhere(['like', 'network.name', $this->network_id]);
+            ->andFilterWhere(['like', 'address', $this->address])
+            ->andFilterWhere(['like', 'ppoe_username', $this->ppoe_username])
+            ->andFilterWhere(['like', 'ppoe_password', $this->ppoe_password]);
 
         return $dataProvider;
     }

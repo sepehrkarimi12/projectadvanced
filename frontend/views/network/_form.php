@@ -23,7 +23,6 @@ use yii\widgets\ActiveForm;
             'language' => 'en',
             'options' => [
                 'placeholder' => 'Select network type name ...',
-                'id' => 'typeId'
             ],
             'pluginOptions' => [
                 'allowClear' => true

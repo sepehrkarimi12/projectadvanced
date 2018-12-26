@@ -4,14 +4,14 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model frontend\models\Radio */
+/* @var $model frontend\models\Service */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Radios'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Services'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
-<div class="radio-view">
+<div class="service-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -29,26 +29,19 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            // 'id',
+            'id',
             'name',
-            'model',
-            'serial',
-            [
-                'attribute' => 'network_id',
-                'value' => function($model){
-                    return $model->network->name;
-                }
-            ],
-            // 'is_deleted',
-            [
-                'attribute' => 'creator_id',
-                'value' => function($data){
-                    return $data->creator->username;
-                }
-            ],
-            'created_at:date',
-            // 'deletor_id',
-            // 'deleted_at',
+            'customer_id',
+            'type_id',
+            'network_id',
+            'address',
+            'ppoe_username',
+            'ppoe_password',
+            'is_deleted',
+            'creator_id',
+            'created_at',
+            'deletor_id',
+            'deleted_at',
         ],
     ]) ?>
 

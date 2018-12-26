@@ -4,6 +4,8 @@ namespace frontend\models;
 
 use Yii;
 use common\models\User;
+use common\components\Zmodel;
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "radio".
  *
@@ -89,4 +91,11 @@ class Radio extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'deletor_id']);
     }
+
+    public function getAllNetworks()
+    {
+        $all=Network::find()->where(['!=','is_deleted',Zmodel::$active])->all();
+        return ArrayHelper::map($all,'id','name');
+    }
+
 }

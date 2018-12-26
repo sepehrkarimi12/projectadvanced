@@ -3,16 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Radio;
-use frontend\models\searchs\RadioSearch;
-use common\components\Zcontroller;
+use frontend\models\Service;
+use frontend\models\searchs\ServiceSearch;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * RadioController implements the CRUD actions for Radio model.
+ * ServiceController implements the CRUD actions for Service model.
  */
-class RadioController extends Zcontroller
+class ServiceController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class RadioController extends Zcontroller
     }
 
     /**
-     * Lists all Radio models.
+     * Lists all Service models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new RadioSearch();
+        $searchModel = new ServiceSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class RadioController extends Zcontroller
     }
 
     /**
-     * Displays a single Radio model.
+     * Displays a single Service model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,29 +58,25 @@ class RadioController extends Zcontroller
     }
 
     /**
-     * Creates a new Radio model.
+     * Creates a new Service model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Radio();
-        $networks = $model->getAllNetworks();
+        $model = new Service();
 
-        if ($model->load(Yii::$app->request->post())) {
-            $model=$this->save_customize($model);
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'networks' => $networks,
         ]);
     }
 
     /**
-     * Updates an existing Radio model.
+     * Updates an existing Service model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -89,7 +85,6 @@ class RadioController extends Zcontroller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $networks = $model->getAllNetworks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -97,12 +92,11 @@ class RadioController extends Zcontroller
 
         return $this->render('update', [
             'model' => $model,
-             'networks' => $networks,   
         ]);
     }
 
     /**
-     * Deletes an existing Radio model.
+     * Deletes an existing Service model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,23 +104,21 @@ class RadioController extends Zcontroller
      */
     public function actionDelete($id)
     {
-        $model=$this->findModel($id);
-        $model=$this->delete_customize($model);
-        $model->save();
+        $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Radio model based on its primary key value.
+     * Finds the Service model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Radio the loaded model
+     * @return Service the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Radio::findOne($id)) !== null) {
+        if (($model = Service::findOne($id)) !== null) {
             return $model;
         }
 
