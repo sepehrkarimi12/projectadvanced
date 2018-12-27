@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Dec 23, 2018 at 02:02 PM
+-- Generation Time: Dec 27, 2018 at 09:27 AM
 -- Server version: 5.7.24-0ubuntu0.18.04.1
 -- PHP Version: 7.2.10-0ubuntu0.18.04.1
 
@@ -28,9 +28,16 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `auth_assignment` (
   `item_name` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
-  `user_id` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
   `created_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `auth_assignment`
+--
+
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+('employe', 32, 1545902797);
 
 -- --------------------------------------------------------
 
@@ -48,6 +55,26 @@ CREATE TABLE `auth_item` (
   `updated_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Dumping data for table `auth_item`
+--
+
+INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
+('add network', 2, NULL, NULL, NULL, 1545900308, 1545900308),
+('add service', 2, NULL, NULL, NULL, 1545900307, 1545900307),
+('add user', 2, NULL, NULL, NULL, 1545900307, 1545900307),
+('admin network', 2, NULL, NULL, NULL, 1545900308, 1545900308),
+('admin service', 2, NULL, NULL, NULL, 1545900307, 1545900307),
+('admin user', 2, NULL, NULL, NULL, 1545900307, 1545900307),
+('delete network', 2, NULL, NULL, NULL, 1545900308, 1545900308),
+('delete service', 2, NULL, NULL, NULL, 1545900308, 1545900308),
+('delete user', 2, NULL, NULL, NULL, 1545900307, 1545900307),
+('employe', 1, 'employe', NULL, NULL, 1545900799, 1545900799),
+('superAdmin', 1, 'superAdmin full access', NULL, NULL, 1545900604, 1545900604),
+('update network', 2, NULL, NULL, NULL, 1545900308, 1545900308),
+('update service', 2, NULL, NULL, NULL, 1545900307, 1545900307),
+('update user', 2, NULL, NULL, NULL, 1545900307, 1545900307);
+
 -- --------------------------------------------------------
 
 --
@@ -58,6 +85,24 @@ CREATE TABLE `auth_item_child` (
   `parent` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `child` varchar(64) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `auth_item_child`
+--
+
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+('superAdmin', 'add network'),
+('superAdmin', 'add service'),
+('superAdmin', 'add user'),
+('superAdmin', 'admin network'),
+('superAdmin', 'admin service'),
+('superAdmin', 'admin user'),
+('superAdmin', 'delete network'),
+('superAdmin', 'delete service'),
+('superAdmin', 'delete user'),
+('superAdmin', 'update network'),
+('superAdmin', 'update service'),
+('superAdmin', 'update user');
 
 -- --------------------------------------------------------
 
@@ -90,14 +135,6 @@ CREATE TABLE `comment` (
   `deleted_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `comment`
---
-
-INSERT INTO `comment` (`id`, `text`, `file`, `customer_id`, `is_deleted`, `creator_id`, `created_at`, `deletor_id`, `deleted_at`) VALUES
-(35, 'q', 'uploads/1545562401.png', 14, 1, 1, 1545562401, 1, 1545562433),
-(36, 'w', NULL, 14, 0, 1, 1545562420, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -118,16 +155,6 @@ CREATE TABLE `customer` (
   `deletor_id` int(11) DEFAULT NULL,
   `deleted_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `customer`
---
-
-INSERT INTO `customer` (`id`, `fname`, `lname`, `address`, `email`, `phone`, `mobile`, `is_deleted`, `creator_id`, `created_at`, `deletor_id`, `deleted_at`) VALUES
-(11, 'aaaaaaaaaa', 'aaaaaaa', 'aaaaaaa', 'mkl@gmail.com', '11111111111', '11111111111', 1, 1, 1545544952, 1, 1545544976),
-(12, 'bbbbB', 'bbbbbbB', 'BBBBBBB', 'mkl@gmail.com', '11111111111', '11111111111', 1, 1, 1545545025, 1, 1545545826),
-(13, 'lmmp;mpopom', 'pompo', 'momo', 'a@gmail.com', '11111111111', '22222222222', 1, 1, 1545545618, 1, 1545545824),
-(14, 'sepehr', 'KARimi', 'tehpars', 'a@gmail.com', '11111111111', '22222222222', 0, 1, 1545545985, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -177,15 +204,6 @@ CREATE TABLE `network` (
   `deleted_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `network`
---
-
-INSERT INTO `network` (`id`, `name`, `address`, `type_id`, `ip_address`, `is_deleted`, `creator_id`, `created_at`, `deletor_id`, `deleted_at`) VALUES
-(1, 'asghr', 'as', 3, '', 1, 1, 1545568151, 1, 1545568166),
-(2, 'ty', 'ty', 3, '', 1, 1, 1545568421, 1, 1545569475),
-(3, 'tttt', 'ttttttttttt', 3, '', 0, 1, 1545570994, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -203,15 +221,6 @@ CREATE TABLE `networktype` (
   `deleted_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `networktype`
---
-
-INSERT INTO `networktype` (`id`, `title`, `need_ip`, `is_deleted`, `creator_id`, `created_at`, `deletor_id`, `deleted_at`) VALUES
-(1, 'pop-site', 0, 1, 1, 1545563299, 1, 1545563332),
-(2, 'biulding', 0, 1, 1, 1545563734, 1, 1545567774),
-(3, 'ali', 1, 0, 1, 1545565849, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -224,7 +233,7 @@ CREATE TABLE `radio` (
   `model` varchar(100) NOT NULL,
   `serial` varchar(100) NOT NULL,
   `network_id` int(11) NOT NULL,
-  `is_deleted` smallint(6) DEFAULT NULL,
+  `is_deleted` smallint(6) DEFAULT '0',
   `creator_id` int(11) DEFAULT NULL,
   `created_at` int(11) DEFAULT NULL,
   `deletor_id` int(11) DEFAULT NULL,
@@ -269,13 +278,6 @@ CREATE TABLE `servicetype` (
   `deleted_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `servicetype`
---
-
-INSERT INTO `servicetype` (`id`, `title`, `is_deleted`, `creator_id`, `created_at`, `deletor_id`, `deleted_at`) VALUES
-(1, 'Adsl', 9, 1, 1545554868, 1, 1545561696);
-
 -- --------------------------------------------------------
 
 --
@@ -299,7 +301,8 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'NqsN9Qqwfp_Sw7Aq-Qy-A9ejFADAn7du', '$2y$13$2JH/enqb2YipI/4Yad9.iO3qgx.a4HOgwKd5jrJRN/Jp27NjsTq8e', NULL, 'admin@gmail.com', 10, 1545484908, 1545484908);
+(14, 'admin', 'KMihK2TpAeZ5wnwql_9IYYnrZqhLqdKh', '$2y$13$ooTG94YWg/mUjW3kG034se7as7iXsSgbkTQ7PrOBZEOCRqH6KFYxu', NULL, 'admin@gmail.com', 10, 1545819297, 1545819297),
+(32, 'ali', 'QwW4smkzHD552xQ3kHhF15dcjQesnmZf', '$2y$13$FvNjJrDQ7HcwdDwg2pyhn.GxRYLX4Gv6oTOBd4EEuhhVHqyyAMSza', NULL, 'ali@kjk.com', 0, 1545902797, 1545902797);
 
 --
 -- Indexes for dumped tables
@@ -370,7 +373,6 @@ ALTER TABLE `network`
 --
 ALTER TABLE `networktype`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `title` (`title`),
   ADD KEY `FK_networktype creator` (`creator_id`),
   ADD KEY `FK_networktype deletor` (`deletor_id`);
 
@@ -399,7 +401,6 @@ ALTER TABLE `service`
 --
 ALTER TABLE `servicetype`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `title` (`title`),
   ADD KEY `FK_servicetype creator` (`creator_id`),
   ADD KEY `FK_servicetype deletor` (`deletor_id`);
 
@@ -420,22 +421,22 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `network`
 --
 ALTER TABLE `network`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `networktype`
 --
 ALTER TABLE `networktype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `radio`
 --
@@ -450,12 +451,12 @@ ALTER TABLE `service`
 -- AUTO_INCREMENT for table `servicetype`
 --
 ALTER TABLE `servicetype`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 --
 -- Constraints for dumped tables
 --

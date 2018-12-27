@@ -213,6 +213,8 @@ class User extends \yii\db\ActiveRecord
 
             $assign->user_id=$user->id;
             $assign->item_name=$this->role;
+            $assign->created_at=time();
+            $assign->save();
 
             $this->id=$user->id;
             return true;
@@ -227,6 +229,14 @@ class User extends \yii\db\ActiveRecord
             $this->password_hash=Yii::$app->security->generatePasswordHash($this->password);
         }
         $this->status = $this->status ? 10 : 0;
+
+        $assign = new Authassignment;
+        $assign=$assign->find()->where(['user_id'=>$this->id]);
+
+        $assign->item_name=$this->role;
+        $assign->updated_at=time();
+        $assign->save();
+
         return parent::update();
     }
 

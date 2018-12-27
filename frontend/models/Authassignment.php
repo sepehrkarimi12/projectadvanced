@@ -31,9 +31,8 @@ class Authassignment extends \yii\db\ActiveRecord
         return [
             [['item_name', 'user_id'], 'required'],
             [['created_at'], 'integer'],
-            [['item_name', 'user_id'], 'string', 'max' => 64],
+            [['item_name'], 'string', 'max' => 64],
             [['item_name', 'user_id'], 'unique', 'targetAttribute' => ['item_name', 'user_id']],
-            [['item_name'], 'exist', 'skipOnError' => true, 'targetClass' => AuthItem::className(), 'targetAttribute' => ['item_name' => 'name']],
         ];
     }
 
@@ -49,11 +48,4 @@ class Authassignment extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getItemName()
-    {
-        return $this->hasOne(AuthItem::className(), ['name' => 'item_name']);
-    }
 }

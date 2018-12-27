@@ -106,7 +106,7 @@ class Role extends \yii\db\ActiveRecord
 
     public function getAllPermissions()
     {
-        $all=Role::findAll(['type'=>2]);
+        $all=Role::find()->where(['type'=>2])->orderBy('name')->all();
         $all=ArrayHelper::map($all,'name','name');
         // print_r($all);die();
         return $all;
@@ -133,11 +133,13 @@ class Role extends \yii\db\ActiveRecord
         $auth->add($role);
 
         // save permissions in authitemchild
-        foreach ($_POST['permissions'] as $v) {
-            $child=new Authitemchild;
-            $child->parent=$role->name;
-            $child->child=$v;
-            $child->save();
+        if(isset($_POST['permissions'])){
+            foreach ($_POST['permissions'] as $v) {
+                $child=new Authitemchild;
+                $child->parent=$role->name;
+                $child->child=$v;
+                $child->save();
+            }
         }
 
         return true;
@@ -147,12 +149,13 @@ class Role extends \yii\db\ActiveRecord
     {
         $child=new Authitemchild;
         $child->deleteAll(['parent'=>$this->name]);
-
-        foreach ($_POST['permissions'] as $v) {
-            $child=new Authitemchild;
-            $child->parent=$this->name;
-            $child->child=$v;
-            $child->save();
+        if(isset($_POST['permissions'])){
+            foreach ($_POST['permissions'] as $v) {
+                $child=new Authitemchild;
+                $child->parent=$this->name;
+                $child->child=$v;
+                $child->save();
+            }
         }
         // die();
 

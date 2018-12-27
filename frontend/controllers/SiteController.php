@@ -221,26 +221,45 @@ class SiteController extends Controller
     {
         $auth= Yii::$app->authManager;
 
-        $superadmin=$auth->createRole('superAdmin');
-        $auth->add($superadmin);
+        // user permissions
+        $user=$auth->createPermission('admin user');
+        $auth->add($user);
 
-        $employe=$auth->createRole('employe');
-        $auth->add($employe);
+        $user=$auth->createPermission('add user');
+        $auth->add($user);
 
-        $useroperation=$auth->createPermission('userOperation');
-        $auth->add($useroperation);
+        $user=$auth->createPermission('update user');
+        $auth->add($user);
 
-        $serviceoperation=$auth->createPermission('serviceOperation');
-        $auth->add($serviceoperation);
+        $user=$auth->createPermission('delete user');
+        $auth->add($user);
 
-        $networkoperation=$auth->createPermission('networkOperation');
-        $auth->add($networkoperation);
+        // service permissions
+        $service=$auth->createPermission('admin service');
+        $auth->add($service);
 
-        $auth->addChild($superadmin,$useroperation);
-        $auth->addChild($superadmin,$serviceoperation);
-        $auth->addChild($superadmin,$networkoperation);
+        $service=$auth->createPermission('add service');
+        $auth->add($service);
 
-        $auth->assign($superadmin,1);
+        $service=$auth->createPermission('update service');
+        $auth->add($service);
+
+        $service=$auth->createPermission('delete service');
+        $auth->add($service);
+
+        // network permissions
+        $network=$auth->createPermission('admin network');
+        $auth->add($network);
+
+        $network=$auth->createPermission('add network');
+        $auth->add($network);
+
+        $network=$auth->createPermission('update network');
+        $auth->add($network);
+
+        $network=$auth->createPermission('delete network');
+        $auth->add($network);
+        
     }
 
     public function actionDownPermissions()
