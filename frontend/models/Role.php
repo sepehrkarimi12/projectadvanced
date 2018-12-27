@@ -25,6 +25,7 @@ use Yii;
  */
 class Role extends \yii\db\ActiveRecord
 {
+    public $permissions;
     /**
      * {@inheritdoc}
      */
@@ -109,6 +110,53 @@ class Role extends \yii\db\ActiveRecord
         $all=ArrayHelper::map($all,'name','name');
         // print_r($all);die();
         return $all;
+    }
+
+    public function getSelectedPermissions()
+    {
+        if($this->isNewRecord){
+            return [];
+        }
+
+        $all=Authitemchild::findAll(['parent'=>$this->name]);
+        $all=ArrayHelper::getColumn($all,'child');
+        return $all;
+    }
+
+    public function Save ($runValidation = true, $attributeNames = NULL)
+    {
+        $auth=Yii::$app->authManager;
+
+        // save role in authitem
+        $role=$auth->createRole($this->name);
+        $role->description=$this->description;
+        $auth->add($role);
+
+        // save permissions in authitemchild
+        foreach ($_POST['permissions'] as $v) {
+            $child=new Authitemchild;
+            $child->parent=$role->name;
+            $child->child=$v;
+            $child->save();
+        }
+
+        return true;
+    }
+
+    public function update($runValidation = true, $attributeNames = NULL)
+    {
+        $child=new Authitemchild;
+        $child->deleteAll(['parent'=>$this->name]);
+
+        foreach ($_POST['permissions'] as $v) {
+            $child=new Authitemchild;
+            $child->parent=$this->name;
+            $child->child=$v;
+            $child->save();
+        }
+        // die();
+
+        parent::update();
     }
 
 }

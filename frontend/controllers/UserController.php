@@ -87,6 +87,7 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
         $model->scenario='edit_user';
+        $model->status=$model->status?1:0;
 
         if ($model->load(Yii::$app->request->post()) && $model->update()) {
             return $this->redirect(['view', 'id' => $model->id]);

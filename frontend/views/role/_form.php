@@ -22,12 +22,13 @@ use yii\widgets\ActiveForm;
             <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
         </div>
 
+
+    </div>
+
+        <div class="col-md-8">
+            <?= Html::checkboxList('permissions[]', $model->getSelectedPermissions(), $model->getAllPermissions() ) ?>
+        </div>
+
         <?php ActiveForm::end(); ?>
-
-    </div>
-
-    <div class="col-md-8">
-        <?= Html::checkbox('permissions',$model->getAllPermissions(),[]) ?>
-    </div>
 
 </div>
