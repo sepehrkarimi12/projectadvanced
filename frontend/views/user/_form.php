@@ -1,6 +1,7 @@
 <?php
 
 use yii\helpers\Html;
+use kartik\select2\Select2;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -17,6 +18,19 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'password')->textInput(['maxlength' => true]) ?>    
 
     <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+
+    <?php
+        echo $form->field($model, 'role')->widget(Select2::classname(), [
+            'data' => $model->getAllRoles(),
+            'language' => 'en',
+            'options' => [
+                'placeholder' => 'Select Role Name ...',
+            ],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
+    ?>
 
     <?= $form->field($model, 'status')->checkbox() ?>
 

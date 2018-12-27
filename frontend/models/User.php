@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "user".
@@ -35,6 +36,7 @@ use Yii;
 class User extends \yii\db\ActiveRecord
 {
     public $password;
+    public $role;
     /**
      * {@inheritdoc}
      */
@@ -49,7 +51,7 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'password'], 'required', 'on'=>'add_user'],
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'password', 'role'], 'required', 'on'=>'add_user'],
 
             [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'],
              'required', 'on'=>'edit_user'],
@@ -206,9 +208,16 @@ class User extends \yii\db\ActiveRecord
         
         if($user->save())
         {
+
+            $assign = new Authassignment;
+
+            $assign->user_id=$user->id;
+            $assign->item_name=$this->role;
+
             $this->id=$user->id;
             return true;
         }
+        return false;
     }
 
     public function update($runValidation = true, $attributeNames = NULL)
@@ -219,6 +228,12 @@ class User extends \yii\db\ActiveRecord
         }
         $this->status = $this->status ? 10 : 0;
         return parent::update();
+    }
+
+    public function getAllRoles()
+    {
+        $all=Role::findAll(['type'=>1]);
+        return ArrayHelper::map($all,'name','name');
     }
 
 }
