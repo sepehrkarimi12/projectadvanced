@@ -49,7 +49,11 @@ class User extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'password'], 'required'],
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at', 'password'], 'required', 'on'=>'add_user'],
+
+            [['username', 'auth_key', 'password_hash', 'email', 'created_at', 'updated_at'],
+             'required', 'on'=>'edit_user'],
+
             [['status', 'created_at', 'updated_at'], 'integer'],
             [['username', 'password_hash', 'password_reset_token', 'email'], 'string', 'max' => 255],
             [['auth_key'], 'string', 'max' => 32],
@@ -203,8 +207,18 @@ class User extends \yii\db\ActiveRecord
         if($user->save())
         {
             $this->id=$user->id;
-           return true;
+            return true;
         }
+    }
+
+    public function update($runValidation = true, $attributeNames = NULL)
+    {
+        if(!empty($this->password))
+        {
+            $this->password_hash=Yii::$app->security->generatePasswordHash($this->password);
+        }
+        $this->status = $this->status ? 10 : 0;
+        return parent::update();
     }
 
 }
