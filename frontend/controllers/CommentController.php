@@ -125,7 +125,28 @@ class CommentController extends ZController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+
+            if( empty($model->imageFile) ){            
+                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                $model->file=$model->upload();
+            }
+
+            $oldfile=$this->findModel($id)->file;
+            if($model->file==null){
+                $model->file=$oldfile;
+            }
+            else
+            {  
+                if($oldfile!=null)
+                    unlink($oldfile);
+            }
+            // echo();
+            // die();
+
+            $model=$this->save_customize($model);
+            $model->update(false);
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
