@@ -83,6 +83,7 @@ class UserController extends Controller
         $model->scenario='add_user';
 
         if ($model->load( Yii::$app->request->post()) ) {
+            // cant validate for create user
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -149,7 +150,7 @@ class UserController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    private function getRole($id)
+    private function getRole(int $id)
     {
         return Authassignment::findOne(['user_id'=>$id])->item_name;
     }

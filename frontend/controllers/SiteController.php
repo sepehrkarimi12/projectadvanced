@@ -17,7 +17,7 @@ use common\components\Zmodel;
 /**
  * Site controller
  */
-class SiteController extends Controller
+class SiteController extends Controller implements \common\components\permissions
 {
     /**
      * {@inheritdoc}
@@ -27,7 +27,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'permissions', 'down-permissions'],
+                'only' => ['logout', 'signup', 'up', 'down'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -40,7 +40,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['permissions', 'down-permissions'],
+                        'actions' => ['up', 'down'],
                         'allow' => false,
                     ],
                 ],
@@ -218,12 +218,22 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionPermissions()
+    public function actionUp()
+    {
+        $this->upPermissions();
+    }
+
+    public function actionDown()
+    {
+        $this->downPermissions();
+    }
+
+    public function upPermissions()
     {
         Zmodel::runPermissions();
     }
 
-    public function actionDownPermissions()
+    public function downPermissions()
     {
         Zmodel::deletePermissions();
     }

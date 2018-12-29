@@ -5,6 +5,7 @@ namespace frontend\models\searchs;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\User;
+use Yii;
 
 /**
  * UserSearch represents the model behind the search form of `frontend\models\User`.
@@ -40,7 +41,8 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find()->where(['!=','username','supeeradmin']);
+        $query = User::find()->andWhere(['!=','username','superadmin'])
+        ->andWhere(['!=','username',Yii::$app->user->identity->username]);
 
         // add conditions that should always apply here
 

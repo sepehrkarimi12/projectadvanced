@@ -55,23 +55,23 @@ AppAsset::register($this);
     }
 
     if(Yii::$app->user->can('admin comment'))
-        $menuItems[] = ['label' => 'comment', 'url' => ['/comment']];
+        $menuItems[] = ['label' => 'comment', 'url' => ['/comment/index']];
     if(Yii::$app->user->can('admin customer'))
-        $menuItems[] = ['label' => 'customer', 'url' => ['/customer']];
+        $menuItems[] = ['label' => 'customer', 'url' => ['/customer/index']];
     if(Yii::$app->user->can('admin network'))
-        $menuItems[] = ['label' => 'Network', 'url' => ['/network']];
+        $menuItems[] = ['label' => 'Network', 'url' => ['/network/index']];
     if(Yii::$app->user->can('admin networktype'))
-        $menuItems[] = ['label' => 'networktype', 'url' => ['/networktype']];
+        $menuItems[] = ['label' => 'networktype', 'url' => ['/networktype/index']];
     if(Yii::$app->user->can('admin radio'))
-        $menuItems[] = ['label' => 'radio', 'url' => ['/radio']];
+        $menuItems[] = ['label' => 'radio', 'url' => ['/radio/index']];
     if(Yii::$app->user->can('admin role'))
-        $menuItems[] = ['label' => 'role', 'url' => ['/role']];
+        $menuItems[] = ['label' => 'role', 'url' => ['/role/index']];
     if(Yii::$app->user->can('admin service'))
-        $menuItems[] = ['label' => 'service', 'url' => ['/service']];
+        $menuItems[] = ['label' => 'service', 'url' => ['/service/index']];
     if(Yii::$app->user->can('admin servictype'))
-        $menuItems[] = ['label' => 'servictype', 'url' => ['/servictype']];
+        $menuItems[] = ['label' => 'servictype', 'url' => ['/servictype/index']];
     if(Yii::$app->user->can('admin user'))
-        $menuItems[] = ['label' => 'user', 'url' => ['/user']];
+        $menuItems[] = ['label' => 'user', 'url' => ['/user/index']];
     
 
     echo Nav::widget([

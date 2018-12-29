@@ -39,7 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute'=>'need_ip',
                 'value'=>function($data){
                     return $data->need_ip ? 'Yes' : 'No';
-                }
+                },
+                'filter'=>[1=>'Yes', 0=>'No'],
             ],
             // 'created_at',
             //'deletor_id',
