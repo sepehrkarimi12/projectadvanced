@@ -238,4 +238,15 @@ class SiteController extends Controller implements \common\components\permission
         Zmodel::deletePermissions();
     }
 
+    public function __clone()
+    {
+       echo 'You have created a clone of <'.Yii::$app->controller->action->id. '> action <'. Yii::$app->controller->id. '> controller ' . '<br>';
+       die();
+    }
+
+    public function actionClone()
+    {
+        $clone = clone $this;
+    }
+
 }

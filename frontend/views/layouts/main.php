@@ -37,8 +37,8 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
-        ['label' => 'Contact', 'url' => ['/site/contact']],
+        // ['label' => 'About', 'url' => ['/site/about']],
+        // ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
@@ -54,24 +54,24 @@ AppAsset::register($this);
             . '</li>';
     }
 
-    if(Yii::$app->user->can('admin comment'))
-        $menuItems[] = ['label' => 'comment', 'url' => ['/comment/index']];
+    if(Yii::$app->user->can('admin user'))
+        $menuItems[] = ['label' => 'user', 'url' => ['/user/index']];
+    if(Yii::$app->user->can('admin role'))
+        $menuItems[] = ['label' => 'role', 'url' => ['/role/index']];
     if(Yii::$app->user->can('admin customer'))
         $menuItems[] = ['label' => 'customer', 'url' => ['/customer/index']];
+    if(Yii::$app->user->can('admin comment'))
+        $menuItems[] = ['label' => 'comment', 'url' => ['/comment/index']];
     if(Yii::$app->user->can('admin network'))
         $menuItems[] = ['label' => 'Network', 'url' => ['/network/index']];
     if(Yii::$app->user->can('admin networktype'))
         $menuItems[] = ['label' => 'networktype', 'url' => ['/networktype/index']];
-    if(Yii::$app->user->can('admin radio'))
-        $menuItems[] = ['label' => 'radio', 'url' => ['/radio/index']];
-    if(Yii::$app->user->can('admin role'))
-        $menuItems[] = ['label' => 'role', 'url' => ['/role/index']];
     if(Yii::$app->user->can('admin service'))
         $menuItems[] = ['label' => 'service', 'url' => ['/service/index']];
-    if(Yii::$app->user->can('admin servictype'))
-        $menuItems[] = ['label' => 'servictype', 'url' => ['/servictype/index']];
-    if(Yii::$app->user->can('admin user'))
-        $menuItems[] = ['label' => 'user', 'url' => ['/user/index']];
+    if(Yii::$app->user->can('admin servicetype'))
+        $menuItems[] = ['label' => 'servicetype', 'url' => ['/servicetype/index']];
+    if(Yii::$app->user->can('admin radio'))
+        $menuItems[] = ['label' => 'radio', 'url' => ['/radio/index']];
     
 
     echo Nav::widget([
