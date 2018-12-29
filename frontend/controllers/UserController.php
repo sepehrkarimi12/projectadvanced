@@ -8,6 +8,7 @@ use frontend\models\searchs\UserSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use frontend\models\Authassignment;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -52,8 +53,10 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
+        $model=$this->findModel($id);
+        $model->role=$this->getRole($id);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
         ]);
     }
 
@@ -67,7 +70,8 @@ class UserController extends Controller
         $model = new User();
         $model->scenario='add_user';
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load( Yii::$app->request->post()) && $model->validate() ) {
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -88,8 +92,13 @@ class UserController extends Controller
         $model = $this->findModel($id);
         $model->scenario='edit_user';
         $model->status=$model->status?1:0;
+        $model->role=$this->getRole($id);
+        // echo("<pre>");
+        // print_r();
+        // die();
 
-        if ($model->load(Yii::$app->request->post()) && $model->update()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->update();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -126,5 +135,10 @@ class UserController extends Controller
         }
 
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    }
+
+    private function getRole($id)
+    {
+        return Authassignment::findOne(['user_id'=>$id])->item_name;
     }
 }

@@ -230,11 +230,12 @@ class User extends \yii\db\ActiveRecord
         }
         $this->status = $this->status ? 10 : 0;
 
-        $assign = new Authassignment;
-        $assign=$assign->find()->where(['user_id'=>$this->id]);
-
-        $assign->item_name=$this->role;
-        $assign->updated_at=time();
+        // $assign = new Authassignment;
+        $assign=Authassignment::findOne(['user_id'=>$this->id]);
+        // echo "<pre>";
+        // print_r($this->role);
+        // die();
+        $assign->item_name=$_POST['User']['role'];
         $assign->save();
 
         return parent::update();
