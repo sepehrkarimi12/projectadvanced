@@ -9,7 +9,7 @@ use frontend\models\searchs\CustomerSearch;
 use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
 /**
  * CustomerController implements the CRUD actions for Customer model.
  */
@@ -21,6 +21,17 @@ class CustomerController extends Zcontroller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'update', 'delete', 'view', 'index'],
+                'rules' => [
+                    [
+                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
+                        'allow' => true,
+                        'roles' => ['super admin','employe'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

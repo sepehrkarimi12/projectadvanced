@@ -53,6 +53,27 @@ AppAsset::register($this);
             . Html::endForm()
             . '</li>';
     }
+
+    if(Yii::$app->user->can('admin comment'))
+        $menuItems[] = ['label' => 'comment', 'url' => ['/comment']];
+    if(Yii::$app->user->can('admin customer'))
+        $menuItems[] = ['label' => 'customer', 'url' => ['/customer']];
+    if(Yii::$app->user->can('admin network'))
+        $menuItems[] = ['label' => 'Network', 'url' => ['/network']];
+    if(Yii::$app->user->can('admin networktype'))
+        $menuItems[] = ['label' => 'networktype', 'url' => ['/networktype']];
+    if(Yii::$app->user->can('admin radio'))
+        $menuItems[] = ['label' => 'radio', 'url' => ['/radio']];
+    if(Yii::$app->user->can('admin role'))
+        $menuItems[] = ['label' => 'role', 'url' => ['/role']];
+    if(Yii::$app->user->can('admin service'))
+        $menuItems[] = ['label' => 'service', 'url' => ['/service']];
+    if(Yii::$app->user->can('admin servictype'))
+        $menuItems[] = ['label' => 'servictype', 'url' => ['/servictype']];
+    if(Yii::$app->user->can('admin user'))
+        $menuItems[] = ['label' => 'user', 'url' => ['/user']];
+    
+
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => $menuItems,

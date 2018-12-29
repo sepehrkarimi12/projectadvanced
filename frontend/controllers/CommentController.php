@@ -11,7 +11,7 @@ use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
-
+use yii\filters\AccessControl;
 /**
  * CommentController implements the CRUD actions for Comment model.
  */
@@ -23,6 +23,17 @@ class CommentController extends ZController
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'update', 'delete', 'view', 'index'],
+                'rules' => [
+                    [
+                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
+                        'allow' => true,
+                        'roles' => ['super admin','employe'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

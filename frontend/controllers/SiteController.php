@@ -12,6 +12,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\components\Zmodel;
 
 /**
  * Site controller
@@ -219,53 +220,12 @@ class SiteController extends Controller
 
     public function actionPermissions()
     {
-        $auth= Yii::$app->authManager;
-
-        // user permissions
-        $user=$auth->createPermission('admin user');
-        $auth->add($user);
-
-        $user=$auth->createPermission('add user');
-        $auth->add($user);
-
-        $user=$auth->createPermission('update user');
-        $auth->add($user);
-
-        $user=$auth->createPermission('delete user');
-        $auth->add($user);
-
-        // service permissions
-        $service=$auth->createPermission('admin service');
-        $auth->add($service);
-
-        $service=$auth->createPermission('add service');
-        $auth->add($service);
-
-        $service=$auth->createPermission('update service');
-        $auth->add($service);
-
-        $service=$auth->createPermission('delete service');
-        $auth->add($service);
-
-        // network permissions
-        $network=$auth->createPermission('admin network');
-        $auth->add($network);
-
-        $network=$auth->createPermission('add network');
-        $auth->add($network);
-
-        $network=$auth->createPermission('update network');
-        $auth->add($network);
-
-        $network=$auth->createPermission('delete network');
-        $auth->add($network);
-        
+        Zmodel::runPermissions();
     }
 
     public function actionDownPermissions()
     {
-        $auth = Yii::$app->authManager;
-        $auth->removeAll();
+        Zmodel::deletePermissions();
     }
 
 }

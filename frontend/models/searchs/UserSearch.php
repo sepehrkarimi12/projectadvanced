@@ -40,7 +40,7 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find()->where(['!=','username','superadmin']);
+        $query = User::find()->where(['!=','username','supeeradmin']);
 
         // add conditions that should always apply here
 

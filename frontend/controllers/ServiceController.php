@@ -8,7 +8,7 @@ use frontend\models\searchs\ServiceSearch;
 use yii\web\NotFoundHttpException;
 use common\components\Zcontroller;
 use yii\filters\VerbFilter;
-
+use yii\filters\AccessControl;
 /**
  * ServiceController implements the CRUD actions for Service model.
  */
@@ -20,6 +20,17 @@ class ServiceController extends Zcontroller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'update', 'delete', 'view', 'index'],
+                'rules' => [
+                    [
+                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
+                        'allow' => true,
+                        'roles' => ['super admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

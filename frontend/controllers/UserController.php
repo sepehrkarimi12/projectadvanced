@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use frontend\models\Authassignment;
+use yii\filters\AccessControl;
 
 /**
  * UserController implements the CRUD actions for User model.
@@ -21,6 +22,17 @@ class UserController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'update', 'delete', 'view', 'index'],
+                'rules' => [
+                    [
+                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
+                        'allow' => true,
+                        'roles' => ['super admin'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -70,7 +82,7 @@ class UserController extends Controller
         $model = new User();
         $model->scenario='add_user';
 
-        if ($model->load( Yii::$app->request->post()) && $model->validate() ) {
+        if ($model->load( Yii::$app->request->post()) ) {
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
