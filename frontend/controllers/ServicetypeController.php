@@ -6,7 +6,8 @@ use Yii;
 use frontend\models\Servicetype;
 use frontend\models\searchs\ServicetypeSearch;
 // use yii\web\Controller;
-use common\components\Zcontroller;
+// use common\components\Zcontroller;
+use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -14,7 +15,7 @@ use yii\filters\AccessControl;
 /**
  * ServicetypeController implements the CRUD actions for Servicetype model.
  */
-class ServicetypeController extends Zcontroller
+class ServicetypeController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -80,8 +81,7 @@ class ServicetypeController extends Zcontroller
         $model = new Servicetype();
 
         if ( $model->load(Yii::$app->request->post()) ) {
-            $model=$this->save_customize($model);
-            $model->save();
+            $model=$model->setCreateTime($model)->setCreatorId($model)->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -121,8 +121,7 @@ class ServicetypeController extends Zcontroller
     {
         // $this->findModel($id)->delete();
         $model=$this->findModel($id);
-        $model=$this->delete_customize($model);
-        $model->save();
+        $model=$model->setDeletedTime($model)->setDeletorId($model)->setIsDeleted($model)->save();
 
         return $this->redirect(['index']);
     }

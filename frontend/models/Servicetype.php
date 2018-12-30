@@ -53,7 +53,7 @@ class Servicetype extends \yii\db\ActiveRecord
             'id' => Yii::t('app', 'ID'),
             'title' => Yii::t('app', 'Title'),
             'is_deleted' => Yii::t('app', 'Is Deleted'),
-            'creator_id' => Yii::t('app', 'Creator ID'),
+            'creator_id' => Yii::t('app', 'Creator Name'),
             'created_at' => Yii::t('app', 'Created At'),
             'deletor_id' => Yii::t('app', 'Deletor ID'),
             'deleted_at' => Yii::t('app', 'Deleted At'),
@@ -83,4 +83,39 @@ class Servicetype extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['id' => 'deletor_id']);
     }
+
+    // chain methods for save
+    public function setCreateTime($model)
+    {
+        $model->created_at=time();
+        return $this;
+
+    }
+
+    public function setCreatorId($model)
+    {
+        $model->creator_id=Yii::$app->user->id;
+        return $this;
+    }
+
+    // chain methods for delete
+
+    public function setDeletedTime($model)
+    {
+        $model->deleted_at=time();
+        return $this;
+    }
+
+    public function setDeletorId($model)
+    {
+        $model->deletor_id=Yii::$app->user->id;
+        return $this;
+    }
+
+    public function setIsDeleted($model)
+    {
+        $model->is_deleted=1;
+        return $this;
+    }
+
 }
