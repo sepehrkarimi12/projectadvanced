@@ -129,7 +129,9 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        Authassignment::findOne(['user_id'=>$model->id])->delete();
+        $model->delete();
 
         return $this->redirect(['index']);
     }

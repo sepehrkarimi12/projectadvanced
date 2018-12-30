@@ -27,10 +27,10 @@ class SiteController extends Controller implements \common\components\permission
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup', 'up', 'down'],
+                'only' => ['logout', 'up', 'down'],
                 'rules' => [
                     [
-                        'actions' => ['signup'],
+                        'actions' => [],
                         'allow' => true,
                         'roles' => ['?'],
                     ],
@@ -153,21 +153,21 @@ class SiteController extends Controller implements \common\components\permission
      *
      * @return mixed
      */
-    public function actionSignup()
-    {
-        $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
-            if ($user = $model->signup()) {
-                if (Yii::$app->getUser()->login($user)) {
-                    return $this->goHome();
-                }
-            }
-        }
+    // public function actionSignup()
+    // {
+    //     $model = new SignupForm();
+    //     if ($model->load(Yii::$app->request->post())) {
+    //         if ($user = $model->signup()) {
+    //             if (Yii::$app->getUser()->login($user)) {
+    //                 return $this->goHome();
+    //             }
+    //         }
+    //     }
 
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
-    }
+    //     return $this->render('signup', [
+    //         'model' => $model,
+    //     ]);
+    // }
 
     /**
      * Requests password reset.
