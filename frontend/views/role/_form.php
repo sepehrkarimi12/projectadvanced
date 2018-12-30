@@ -26,7 +26,8 @@ use yii\widgets\ActiveForm;
     </div>
 
         <div class="col-md-8">
-            <?= Html::checkboxList('permissions[]', $model->getSelectedPermissions(), $model->getAllPermissions() ) ?>
+            <h2>Permissions :</h2>
+            <?= Html::checkboxList('permissions[]', $model->getSelectedPermissions(), $model->getAllPermissions() ,['class'=>'']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>
