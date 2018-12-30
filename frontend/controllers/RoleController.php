@@ -116,7 +116,11 @@ class RoleController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model=$this->findModel($id);
+        if(!$model->authAssignments)    
+            $model->delete();    
+        else    
+            Yii::$app->getSession()->setFlash('delete', 'this role has users!');    
 
         return $this->redirect(['index']);
     }

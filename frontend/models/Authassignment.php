@@ -23,6 +23,12 @@ class Authassignment extends \yii\db\ActiveRecord
         return 'auth_assignment';
     }
 
+
+    public function getUser() 
+    { 
+        return $this->hasOne(User::className(), ['id' => 'user_id']); 
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -33,6 +39,7 @@ class Authassignment extends \yii\db\ActiveRecord
             [['created_at'], 'integer'],
             [['item_name'], 'string', 'max' => 64],
             [['item_name', 'user_id'], 'unique', 'targetAttribute' => ['item_name', 'user_id']],
+            [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']], 
         ];
     }
 

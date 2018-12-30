@@ -69,7 +69,7 @@ class Role extends \yii\db\ActiveRecord
      */
     public function getAuthAssignments()
     {
-        return $this->hasMany(AuthAssignment::className(), ['item_name' => 'name']);
+        return $this->hasMany(Authassignment::className(), ['item_name' => 'name']);
     }
 
     /**

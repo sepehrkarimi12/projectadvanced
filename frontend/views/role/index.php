@@ -12,6 +12,12 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="role-index">
 
+    <?php if(Yii::$app->session->hasFlash('delete')): ?>
+        <div class="alert alert-danger alert-dismissable">
+            <?= Yii::$app->session->getFlash('delete');?>
+        </div>
+    <?php endif; ?>
+
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
