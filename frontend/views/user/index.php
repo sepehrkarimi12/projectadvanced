@@ -32,8 +32,17 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'password_hash',
             // 'password_reset_token',
             //'email:email',
-            'status',
-            'created_at:date',
+            [
+                'attribute' => 'status',
+                'value'=>function($data){
+                    return $data->status ? 'active' : 'inActive';
+                },
+                'filter'=>[
+                    10=>'active',
+                    0=>'inActive'
+                ]
+            ],
+            // 'created_at:date',
             //'updated_at',
 
             ['class' => 'yii\grid\ActionColumn'],
