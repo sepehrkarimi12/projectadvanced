@@ -249,4 +249,17 @@ class SiteController extends Controller implements \common\components\permission
         $clone = clone $this;
     }
 
+    public function actionCall()
+    {
+        $this->thisIsMethodName('arguman1','arguman2');
+    }
+
+    public function __call( $name, $params )
+    {
+       echo $name . ' method does not exist';
+       print_r( $params );
+       echo '<br>';
+       die();
+    }
+
 }
