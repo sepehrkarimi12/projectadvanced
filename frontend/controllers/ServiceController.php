@@ -107,8 +107,13 @@ class ServiceController extends Zcontroller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
+        $service_types=$model->getAllServiceTypes();
+        $networks=$model->getAllNetworks();
+        
         return $this->render('update', [
             'model' => $model,
+            'service_types'=>$service_types,
+            'networks'=>$networks,
         ]);
     }
 

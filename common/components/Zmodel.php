@@ -28,7 +28,12 @@ abstract class Zmodel extends \yii\db\ActiveRecord
 
     public function getAllNetworks()
     {
-        $all=Network::find()->where(['!=','is_deleted',Zmodel::$active])->all();
+        // $all=Network::find()->where(['!=','is_deleted',Zmodel::$active])->all();
+        $all=Network::find()
+        ->where(['!=','network.is_deleted',Zmodel::$active])
+        ->joinWith('type')
+        ->onCondition(['!=','networktype.is_deleted',Zmodel::$active])
+        ->all();
         return ArrayHelper::map($all,'id','name');
     }
 

@@ -44,6 +44,16 @@ class ServiceSearch extends Service
         $query = Service::find()->where(['!=','service.is_deleted',Zmodel::$active]);
 
         // add conditions that should always apply here
+        $query->joinWith('customer')->andOnCondition(['!=','customer.is_deleted',Zmodel::$active])->all();
+        $query->joinWith('type')->andOnCondition(['!=','servicetype.is_deleted',Zmodel::$active])->all();
+
+        // get the network that their types is active
+        $query->joinWith('network')
+        ->andOnCondition(['!=','network.is_deleted',Zmodel::$active])
+        ->joinWith('network.type')
+        ->andOnCondition(['!=','networktype.is_deleted',Zmodel::$active])
+        ->all();
+        // $query->joinWith('network.type')->andOnCondition(['!=','networktype.is_deleted',Zmodel::$active])->all();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -57,9 +67,7 @@ class ServiceSearch extends Service
             return $dataProvider;
         }
 
-        $query->joinWith('customer')->onCondition(['!=','customer.is_deleted',1])->all();
-        $query->joinWith('type')->onCondition(['!=','servicetype.is_deleted',1])->all();
-        $query->joinWith('network')->onCondition(['!=','network.is_deleted',1])->all();
+        
 
         // grid filtering conditions
         $query->andFilterWhere([

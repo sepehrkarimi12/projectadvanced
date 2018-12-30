@@ -57,7 +57,7 @@ class CommentSearch extends Comment
             return $dataProvider;
         }
 
-        $query->joinWith('customer')->onCondition(['!=','customer.is_deleted',Zmodel::$active]);
+        $query->joinWith('customer')->andOnCondition(['!=','customer.is_deleted',Zmodel::$active]);
         $query->joinWith('creator');
 
         // grid filtering conditions

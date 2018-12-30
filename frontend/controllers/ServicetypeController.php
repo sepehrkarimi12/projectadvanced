@@ -81,7 +81,8 @@ class ServicetypeController extends Controller
         $model = new Servicetype();
 
         if ( $model->load(Yii::$app->request->post()) ) {
-            $model=$model->setCreateTime($model)->setCreatorId($model)->save();
+            $model=$model->setCreateTime($model)->setCreatorId($model);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

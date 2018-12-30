@@ -62,14 +62,17 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'customer', 'url' => ['/customer/index']];
     if(Yii::$app->user->can('admin comment'))
         $menuItems[] = ['label' => 'comment', 'url' => ['/comment/index']];
-    if(Yii::$app->user->can('admin network'))
-        $menuItems[] = ['label' => 'Network', 'url' => ['/network/index']];
-    if(Yii::$app->user->can('admin networktype'))
-        $menuItems[] = ['label' => 'networktype', 'url' => ['/networktype/index']];
+
     if(Yii::$app->user->can('admin service'))
         $menuItems[] = ['label' => 'service', 'url' => ['/service/index']];
     if(Yii::$app->user->can('admin servicetype'))
         $menuItems[] = ['label' => 'servicetype', 'url' => ['/servicetype/index']];
+    
+    if(Yii::$app->user->can('admin network'))
+        $menuItems[] = ['label' => 'Network', 'url' => ['/network/index']];
+    if(Yii::$app->user->can('admin networktype'))
+        $menuItems[] = ['label' => 'networktype', 'url' => ['/networktype/index']];
+    
     if(Yii::$app->user->can('admin radio'))
         $menuItems[] = ['label' => 'radio', 'url' => ['/radio/index']];
     

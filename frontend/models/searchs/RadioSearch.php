@@ -57,7 +57,8 @@ class RadioSearch extends Radio
             return $dataProvider;
         }
 
-        $query->joinWith('network')->onCondition(['!=','network.is_deleted',Zmodel::$active]);
+        $query->joinWith('network')->andOnCondition(['!=','network.is_deleted',Zmodel::$active]);
+        $query->joinWith('network.type')->andOnCondition(['!=','networktype.is_deleted',Zmodel::$active]);
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
