@@ -22,14 +22,48 @@ class NetworktypeController extends Zcontroller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete', 'view', 'index'],
-                'rules' => [
+                'rules'=>[
                     [
-                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
-                        'allow' => true,
-                        'roles' => ['super admin'],
-                    ],
+                    'actions' => ['index'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin networktype');
+                    }
                 ],
+                [
+                    'actions' => ['view'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin networktype');
+                    }
+                ],
+                [
+                    'actions' => ['create'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('add networktype');
+                    }
+                ],
+                [
+                    'actions' => ['update'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('update networktype');
+                    }
+                ],
+                [
+                    'actions' => ['delete'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('delete networktype');
+                    }
+                ],
+                ]                    
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),

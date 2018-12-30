@@ -22,14 +22,48 @@ class RoleController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete', 'view', 'index'],
-                'rules' => [
+                'rules'=>[
                     [
-                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
-                        'allow' => true,
-                        'roles' => ['super admin'],
-                    ],
+                    'actions' => ['index'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin role');
+                    }
                 ],
+                [
+                    'actions' => ['view'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin role');
+                    }
+                ],
+                [
+                    'actions' => ['create'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('add role');
+                    }
+                ],
+                [
+                    'actions' => ['update'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('update role');
+                    }
+                ],
+                [
+                    'actions' => ['delete'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('delete role');
+                    }
+                ],
+                ]                    
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),

@@ -25,14 +25,48 @@ class CommentController extends ZController
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete', 'view', 'index'],
-                'rules' => [
+                'rules'=>[
                     [
-                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
-                        'allow' => true,
-                        'roles' => ['super admin','employe'],
-                    ],
+                    'actions' => ['index'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin comment');
+                    }
                 ],
+                [
+                    'actions' => ['view'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin comment');
+                    }
+                ],
+                [
+                    'actions' => ['create'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('add comment');
+                    }
+                ],
+                [
+                    'actions' => ['update'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('update comment');
+                    }
+                ],
+                [
+                    'actions' => ['delete'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('delete comment');
+                    }
+                ],
+                ]                    
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),

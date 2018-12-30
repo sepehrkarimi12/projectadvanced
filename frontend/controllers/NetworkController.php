@@ -22,14 +22,48 @@ class NetworkController extends Zcontroller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete', 'view', 'index'],
-                'rules' => [
-                    [
-                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
-                        'allow' => true,
-                        'roles' => ['super admin'],
-                    ],
+                'rules'=>[
+                [
+                    'actions' => ['index'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin network');
+                    }
                 ],
+                [
+                    'actions' => ['view'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin network');
+                    }
+                ],
+                [
+                    'actions' => ['create'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('add network');
+                    }
+                ],
+                [
+                    'actions' => ['update'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('update network');
+                    }
+                ],
+                [
+                    'actions' => ['delete'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('delete network');
+                    }
+                ],
+            ]                    
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),

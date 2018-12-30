@@ -22,14 +22,48 @@ class ServiceController extends Zcontroller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete', 'view', 'index'],
-                'rules' => [
+                'rules'=>[
                     [
-                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
-                        'allow' => true,
-                        'roles' => ['super admin'],
-                    ],
+                    'actions' => ['index'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin service');
+                    }
                 ],
+                [
+                    'actions' => ['view'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('admin service');
+                    }
+                ],
+                [
+                    'actions' => ['create'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('add service');
+                    }
+                ],
+                [
+                    'actions' => ['update'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('update service');
+                    }
+                ],
+                [
+                    'actions' => ['delete'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                    'matchCallback'=>function($rule,$action){
+                        return Yii::$app->user->can('delete service');
+                    }
+                ],
+                ]                    
             ],
             'verbs' => [
                 'class' => VerbFilter::className(),

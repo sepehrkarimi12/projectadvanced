@@ -24,13 +24,48 @@ class UserController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['create', 'update', 'delete', 'view', 'index'],
+                // 'only' => ['create', 'update', 'delete', 'view', 'index'],
                 'rules' => [
                     [
-                        'actions' => ['create', 'update', 'delete', 'view', 'index'],
+                        'actions' => ['index'],
                         'allow' => true,
-                        'roles' => ['super admin'],
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Yii::$app->user->can('admin user');
+                        }
                     ],
+                    [
+                        'actions' => ['view'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Yii::$app->user->can('admin user');
+                        }
+                    ],
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Yii::$app->user->can('add user');
+                        }
+                    ],
+                    [
+                        'actions' => ['update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Yii::$app->user->can('update user');
+                        }
+                    ],
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                        'matchCallback'=>function($rule,$action){
+                            return Yii::$app->user->can('delete user');
+                        }
+                    ],                    
                 ],
             ],
             'verbs' => [

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef06888cbd08222bb387f3688d6bff6f",
+    "content-hash": "fa4a7db48c9121f882343b8b7d2a06a7",
     "packages": [
         {
             "name": "2amigos/yii2-ckeditor-widget",
@@ -264,6 +264,46 @@
                 "wysiwyg"
             ],
             "time": "2017-09-13T13:09:47+00:00"
+        },
+        {
+            "name": "creocoder/yii2-nested-sets",
+            "version": "0.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/creocoder/yii2-nested-sets.git",
+                "reference": "cb8635a459b6246e5a144f096b992dcc30cf9954"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/creocoder/yii2-nested-sets/zipball/cb8635a459b6246e5a144f096b992dcc30cf9954",
+                "reference": "cb8635a459b6246e5a144f096b992dcc30cf9954",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "creocoder\\nestedsets\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Kochetov",
+                    "email": "creocoder@gmail.com"
+                }
+            ],
+            "description": "The nested sets behavior for the Yii framework",
+            "keywords": [
+                "nested sets",
+                "yii2"
+            ],
+            "time": "2015-01-27T10:53:51+00:00"
         },
         {
             "name": "ezyang/htmlpurifier",
@@ -734,6 +774,56 @@
                 "yii2"
             ],
             "time": "2017-05-01T08:29:00+00:00"
+        },
+        {
+            "name": "yongtiger/yii2-tree-manager",
+            "version": "v0.0.26",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yongtiger/yii2-tree-manager.git",
+                "reference": "d5ffc5fc48dbc86c56ddf278cc79496909e7da21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yongtiger/yii2-tree-manager/zipball/d5ffc5fc48dbc86c56ddf278cc79496909e7da21",
+                "reference": "d5ffc5fc48dbc86c56ddf278cc79496909e7da21",
+                "shasum": ""
+            },
+            "require": {
+                "creocoder/yii2-nested-sets": "0.9.*",
+                "php": ">=5.5",
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "yongtiger\\tree\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yong Tiger",
+                    "email": "tigeryang.brainbook@outlook.com",
+                    "homepage": "http://www.branbook.cc/yongtiger"
+                }
+            ],
+            "homepage": "http://www.branbook.cc",
+            "keywords": [
+                "adjacency list",
+                "extension",
+                "flat table",
+                "manager",
+                "materialized path",
+                "nested intervals",
+                "nested sets",
+                "tree",
+                "yii2"
+            ],
+            "time": "2017-04-23T21:04:08+00:00"
         }
     ],
     "packages-dev": [
