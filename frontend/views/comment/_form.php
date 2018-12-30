@@ -3,6 +3,7 @@
 use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Comment */
@@ -27,7 +28,11 @@ use yii\widgets\ActiveForm;
         endif;
     ?>
 
-    <?= $form->field($model, 'text')->textarea(['rows' => 6]) ?>
+    
+    <?= $form->field($model, 'text')->widget(CKEditor::className(), [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
 
     <?= $form->field($model, 'imageFile')->fileInput() ?>
 
