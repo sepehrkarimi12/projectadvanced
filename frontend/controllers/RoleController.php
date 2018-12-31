@@ -2,7 +2,9 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Authitemchild;
 use Yii;
+use yii\helpers\ArrayHelper;
 use frontend\models\Role;
 use frontend\models\searchs\RoleSearch;
 use yii\web\Controller;
@@ -97,8 +99,14 @@ class RoleController extends Controller
      */
     public function actionView($id)
     {
+        $model=$this->findModel($id);
+        
+        $permissions=Authitemchild::findAll(['parent'=>$model->name]);
+        $permissions=ArrayHelper::getColumn($permissions,'child');
+
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'permissions' => $permissions,
         ]);
     }
 

@@ -39,4 +39,11 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <h3>Permisiions :</h3>
+    <?php
+    foreach ($permissions as $key => $value) {
+       echo $value.' - ';
+    } 
+    ?>
+
 </div>
