@@ -30,7 +30,7 @@ class ServicetypeController extends Controller
                     'actions' => ['index'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin servicetype');
                     }
                 ],
@@ -38,7 +38,7 @@ class ServicetypeController extends Controller
                     'actions' => ['view'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin servicetype');
                     }
                 ],
@@ -46,7 +46,7 @@ class ServicetypeController extends Controller
                     'actions' => ['create'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('add servicetype');
                     }
                 ],
@@ -54,7 +54,7 @@ class ServicetypeController extends Controller
                     'actions' => ['update'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('update servicetype');
                     }
                 ],
@@ -62,7 +62,7 @@ class ServicetypeController extends Controller
                     'actions' => ['delete'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('delete servicetype');
                     }
                 ],
@@ -114,8 +114,8 @@ class ServicetypeController extends Controller
     {
         $model = new Servicetype();
 
-        if ( $model->load(Yii::$app->request->post()) ) {
-            $model=$model->setCreateTime($model)->setCreatorId($model);
+        if ($model->load(Yii::$app->request->post())) {
+            $model = $model->setCreateTime($model)->setCreatorId($model);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -155,8 +155,8 @@ class ServicetypeController extends Controller
     public function actionDelete($id)
     {
         // $this->findModel($id)->delete();
-        $model=$this->findModel($id);
-        $model=$model->setDeletedTime($model)->setDeletorId($model)->setIsDeleted($model)->save();
+        $model = $this->findModel($id);
+        $model = $model->setDeletedTime($model)->setDeletorId($model)->setIsDeleted($model)->save();
 
         return $this->redirect(['index']);
     }

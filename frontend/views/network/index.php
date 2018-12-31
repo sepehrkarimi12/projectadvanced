@@ -31,7 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'address',
             [
                 'attribute' => 'type_id',
-                'value' => function($data){
+                'value' => function($data) {
                     return $data->type->title;
                 }
             ],

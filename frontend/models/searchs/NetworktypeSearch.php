@@ -41,7 +41,7 @@ class NetworktypeSearch extends Networktype
      */
     public function search($params)
     {
-        $query = Networktype::find()->where(['!=','is_deleted',Zmodel::$active]);
+        $query = Networktype::find()->where(['!=', 'is_deleted', Zmodel::$active]);
 
         // add conditions that should always apply here
 

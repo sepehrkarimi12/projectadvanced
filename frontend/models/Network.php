@@ -47,9 +47,9 @@ class Network extends Zmodel
         return [
             [['name', 'address', 'type_id'],'required',],
             [
-                ['ip_address'], 'required', 'when' => function($model){
+                ['ip_address'], 'required', 'when' => function($model) {
                     $networkTypeModel = Networktype::findOne($model->type_id);
-                    return $networkTypeModel->need_ip==Zmodel::$ip;
+                    return $networkTypeModel->need_ip == Zmodel::$ip;
                  },
                  'enableClientValidation' => false,
                  'message' => 'The Network Type that you choosed, needs IP'
@@ -125,8 +125,8 @@ class Network extends Zmodel
 
     public function getAllNetworktypes()
     {
-        $all=Networktype::find()->where(['!=','is_deleted',Zmodel::$active])->all();
-        $all=ArrayHelper::map($all,'id','title');
+        $all = Networktype::find()->where(['!=', 'is_deleted', Zmodel::$active])->all();
+        $all = ArrayHelper::map($all, 'id', 'title');
         return $all;
     }
 

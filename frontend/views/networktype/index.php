@@ -30,20 +30,20 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             // 'is_deleted',
             [
-                'attribute'=>'creator_id',
-                'value'=>function($data){
+                'attribute' => 'creator_id',
+                'value' => function($data) {
                     return $data->creator->username;
                 }
             ],
             [
-                'attribute'=>'need_ip',
-                'value'=>function($data){
+                'attribute' => 'need_ip',
+                'value' => function($data) {
                     return $data->need_ip ? 'Yes' : 'No';
                 },
-                'filter'=>[1=>'Yes', 0=>'No'],
+                'filter' => [1 => 'Yes', 0 => 'No'],
                 'filterInputOptions' => [
                    'class' => 'form-control',         
-                   'prompt' => 'Select Option'
+                   'prompt' => 'All'
                 ],
             ],
             // 'created_at',

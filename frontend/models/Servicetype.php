@@ -87,14 +87,14 @@ class Servicetype extends \yii\db\ActiveRecord
     // chain methods for save
     public function setCreateTime($model)
     {
-        $model->created_at=time();
+        $model->created_at = time();
         return $this;
 
     }
 
     public function setCreatorId($model)
     {
-        $model->creator_id=Yii::$app->user->id;
+        $model->creator_id = Yii::$app->user->id;
         return $this;
     }
 
@@ -102,19 +102,19 @@ class Servicetype extends \yii\db\ActiveRecord
 
     public function setDeletedTime($model)
     {
-        $model->deleted_at=time();
+        $model->deleted_at = time();
         return $this;
     }
 
     public function setDeletorId($model)
     {
-        $model->deletor_id=Yii::$app->user->id;
+        $model->deletor_id = Yii::$app->user->id;
         return $this;
     }
 
     public function setIsDeleted($model)
     {
-        $model->is_deleted=1;
+        $model->is_deleted = 1;
         return $this;
     }
 

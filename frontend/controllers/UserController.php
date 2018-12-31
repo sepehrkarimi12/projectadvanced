@@ -30,7 +30,7 @@ class UserController extends Controller
                         'actions' => ['index'],
                         'allow' => true,
                         'roles' => ['@'],
-                        'matchCallback'=>function($rule,$action){
+                        'matchCallback' => function($rule, $action) {
                             return Yii::$app->user->can('admin user');
                         }
                     ],
@@ -38,7 +38,7 @@ class UserController extends Controller
                         'actions' => ['view'],
                         'allow' => true,
                         'roles' => ['@'],
-                        'matchCallback'=>function($rule,$action){
+                        'matchCallback' => function($rule, $action) {
                             return Yii::$app->user->can('admin user');
                         }
                     ],
@@ -46,7 +46,7 @@ class UserController extends Controller
                         'actions' => ['create'],
                         'allow' => true,
                         'roles' => ['@'],
-                        'matchCallback'=>function($rule,$action){
+                        'matchCallback' => function($rule, $action) {
                             return Yii::$app->user->can('add user');
                         }
                     ],
@@ -54,7 +54,7 @@ class UserController extends Controller
                         'actions' => ['update'],
                         'allow' => true,
                         'roles' => ['@'],
-                        'matchCallback'=>function($rule,$action){
+                        'matchCallback' => function($rule, $action) {
                             return Yii::$app->user->can('update user');
                         }
                     ],
@@ -62,7 +62,7 @@ class UserController extends Controller
                         'actions' => ['delete'],
                         'allow' => true,
                         'roles' => ['@'],
-                        'matchCallback'=>function($rule,$action){
+                        'matchCallback' => function($rule, $action) {
                             return Yii::$app->user->can('delete user');
                         }
                     ],                    
@@ -100,8 +100,8 @@ class UserController extends Controller
      */
     public function actionView($id)
     {
-        $model=$this->findModel($id);
-        $model->role=$this->getRole($id);
+        $model = $this->findModel($id);
+        $model->role = $this->getRole($id);
         return $this->render('view', [
             'model' => $model,
         ]);
@@ -115,9 +115,9 @@ class UserController extends Controller
     public function actionCreate()
     {
         $model = new User();
-        $model->scenario='add_user';
+        $model->scenario = 'add_user';
 
-        if ($model->load( Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
             // cant validate for create user
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -138,9 +138,9 @@ class UserController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->scenario='edit_user';
-        $model->status=$model->status?1:0;
-        $model->role=$this->getRole($id);
+        $model->scenario = 'edit_user';
+        $model->status = $model->status ? 1 : 0;
+        $model->role = $this->getRole($id);
         // echo("<pre>");
         // print_r();
         // die();
@@ -164,8 +164,8 @@ class UserController extends Controller
      */
     public function actionDelete($id)
     {
-        $model=$this->findModel($id);
-        Authassignment::findOne(['user_id'=>$model->id])->delete();
+        $model = $this->findModel($id);
+        Authassignment::findOne(['user_id' => $model->id])->delete();
         $model->delete();
 
         return $this->redirect(['index']);
@@ -189,6 +189,6 @@ class UserController extends Controller
 
     private function getRole(int $id)
     {
-        return Authassignment::findOne(['user_id'=>$id])->item_name;
+        return Authassignment::findOne(['user_id' => $id])->item_name;
     }
 }

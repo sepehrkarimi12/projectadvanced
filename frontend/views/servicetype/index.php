@@ -30,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'title',
             // 'is_deleted',
             [
-                'attribute'=>'creator_id',
-                'value'=>function($data){
+                'attribute' => 'creator_id',
+                'value' => function($data) {
                     return $data->creator->username;
                 }
             ],

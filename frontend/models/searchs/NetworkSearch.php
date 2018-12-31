@@ -41,7 +41,7 @@ class NetworkSearch extends Network
      */
     public function search($params)
     {
-        $query = Network::find()->where(['!=','network.is_deleted',Zmodel::$active]);
+        $query = Network::find()->where(['!=', 'network.is_deleted', Zmodel::$active]);
 
         // add conditions that should always apply here
 
@@ -57,7 +57,7 @@ class NetworkSearch extends Network
             return $dataProvider;
         }
 
-        $query->joinWith('type')->onCondition(['!=','networktype.is_deleted',Zmodel::$active]);
+        $query->joinWith('type')->onCondition(['!=', 'networktype.is_deleted', Zmodel::$active]);
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

@@ -34,7 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'address',
             [
                 'attribute' => 'type_id',
-                'value' => function($data){
+                'value' => function($data) {
                     return $data->type->title;
                 }
             ],
@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'is_deleted',
             [
                 'attribute' => 'creator_id',
-                'value' => function($data){
+                'value' => function($data) {
                     return $data->creator->username;
                 }
             ],

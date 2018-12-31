@@ -34,16 +34,16 @@ $this->params['breadcrumbs'][] = $this->title;
             //'email:email',
             [
                 'attribute' => 'status',
-                'value'=>function($data){
+                'value' => function($data) {
                     return $data->status ? 'Active' : 'In Active';
                 },
-                'filter'=>[
-                    10=>'Active',
-                    0=>'In Active'
+                'filter' => [
+                    10 => 'Active',
+                    0 => 'In Active'
                 ],
                 'filterInputOptions' => [
                    'class' => 'form-control',         
-                   'prompt' => 'Select Option'
+                   'prompt' => 'All'
                 ],
             ],
             // 'created_at:date',

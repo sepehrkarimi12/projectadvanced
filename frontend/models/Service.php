@@ -120,9 +120,9 @@ class Service extends \common\components\Zmodel
 
     public function getAllServiceTypes()
     {
-        $all=Servicetype::find()->where(['!=','is_deleted',parent::$active])->all();
+        $all = Servicetype::find()->where(['!=','is_deleted', parent::$active])->all();
         // print_r(ArrayHelper::map($all,'id','title'));
         // die();
-        return ArrayHelper::map($all,'id','title');
+        return ArrayHelper::map($all, 'id', 'title');
     }
 }

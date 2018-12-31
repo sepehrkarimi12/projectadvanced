@@ -40,7 +40,7 @@ class RoleSearch extends Role
      */
     public function search($params)
     {
-        $query = Role::find()->where(['type'=>1]);
+        $query = Role::find()->where(['type' => 1]);
 
         // add conditions that should always apply here
 

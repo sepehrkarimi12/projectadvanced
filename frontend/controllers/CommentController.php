@@ -12,6 +12,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
 use yii\filters\AccessControl;
+
 /**
  * CommentController implements the CRUD actions for Comment model.
  */
@@ -25,12 +26,12 @@ class CommentController extends ZController
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'rules'=>[
+                'rules' => [
                     [
                     'actions' => ['index'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin comment');
                     }
                 ],
@@ -38,7 +39,7 @@ class CommentController extends ZController
                     'actions' => ['view'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin comment');
                     }
                 ],
@@ -46,7 +47,7 @@ class CommentController extends ZController
                     'actions' => ['create'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('add comment');
                     }
                 ],
@@ -54,7 +55,7 @@ class CommentController extends ZController
                     'actions' => ['update'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('update comment');
                     }
                 ],
@@ -62,7 +63,7 @@ class CommentController extends ZController
                     'actions' => ['delete'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('delete comment');
                     }
                 ],
@@ -113,27 +114,25 @@ class CommentController extends ZController
     public function actionCreate()
     {
         $model = new Comment();
-        $customers=[];
-        $customer_name='';
+        $customers = [];
+        $customer_name = '';
 
-        if( isset($_GET['id']) && isset($_GET['name']) )
-        {
+        if(isset($_GET['id']) && isset($_GET['name'])) {
             $model->customer_id = $_GET['id'];
             $customer_name = $_GET['name'];
         }
-        else
-        {
-            $customers=Zmodel::getAllCustomers();
+        else {
+            $customers = Zmodel::getAllCustomers();
         }
         // print_r($customers);
         // die();
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
             // echo !($model->imageFile);
             // die();
-            if( empty($model->imageFile) ){            
+            if (empty($model->imageFile)) {            
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                $model->file=$model->upload();
+                $model->file = $model->upload();
             }
 
             $model=$this->save_customize($model);
@@ -159,26 +158,26 @@ class CommentController extends ZController
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
 
-            if( empty($model->imageFile) ){            
+            if(empty($model->imageFile)) {            
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                $model->file=$model->upload();
+                $model->file = $model->upload();
             }
 
-            $oldfile=$this->findModel($id)->file;
-            if($model->file==null){
-                $model->file=$oldfile;
+            $oldfile = $this->findModel($id)->file;
+            if($model->file == null){
+                $model->file = $oldfile;
             }
             else
             {  
-                if($oldfile!=null)
+                if($oldfile != null)
                     unlink($oldfile);
             }
             // echo();
             // die();
 
-            $model=$this->save_customize($model);
+            $model = $this->save_customize($model);
             $model->update(false);
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -201,8 +200,8 @@ class CommentController extends ZController
         // $this->findModel($id)->delete();
 
         // return $this->redirect(['index']);
-        $model=$this->findModel($id);
-        $model=$this->delete_customize($model);
+        $model = $this->findModel($id);
+        $model = $this->delete_customize($model);
         $model->save();
 
         return $this->redirect(['index']);

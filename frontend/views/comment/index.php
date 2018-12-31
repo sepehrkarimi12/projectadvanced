@@ -31,14 +31,14 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'file',
             [
                 'attribute' => 'customer_id',
-                'value' => function($data){
+                'value' => function($data) {
                     return $data->customer->lname;
                 }
             ],
             // 'is_deleted',
             [
                 'attribute' => 'creator_id',
-                'value' => function($data){
+                'value' => function($data) {
                     return $data->creator->username;
                 }
             ],

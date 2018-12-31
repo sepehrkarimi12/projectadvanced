@@ -41,8 +41,8 @@ class UserSearch extends User
      */
     public function search($params)
     {
-        $query = User::find()->andWhere(['!=','username','superadmin'])
-        ->andWhere(['!=','username',Yii::$app->user->identity->username]);
+        $query = User::find()->andWhere(['!=', 'username', 'superadmin'])
+        ->andWhere(['!=', 'username', Yii::$app->user->identity->username]);
 
         // add conditions that should always apply here
 

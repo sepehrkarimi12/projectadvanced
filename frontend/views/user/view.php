@@ -36,9 +36,9 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'password_reset_token',
             'email:email',
             [
-                'attribute'=>'status',
-                'value'=>function($data){
-                    return $data->status==10 ? 'actice' : 'inActive';
+                'attribute' => 'status',
+                'value' => function($data) {
+                    return $data->status == 10 ? 'actice' : 'inActive';
                 }
             ],
             'created_at:date',

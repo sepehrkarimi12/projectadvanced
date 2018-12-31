@@ -35,14 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'serial',
             [
                 'attribute' => 'network_id',
-                'value' => function($model){
+                'value' => function($model) {
                     return $model->network->name;
                 }
             ],
             // 'is_deleted',
             [
                 'attribute' => 'creator_id',
-                'value' => function($data){
+                'value' => function($data) {
                     return $data->creator->username;
                 }
             ],

@@ -33,19 +33,19 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             [
                 'attribute' => 'customer_id',
-                'value' => function($model){
+                'value' => function($model) {
                     return $model->customer->fname.' '.$model->customer->lname;
                 }
             ],
             [
                 'attribute' => 'type_id',
-                'value' => function($model){
+                'value' => function($model) {
                     return $model->type->title;
                 }
             ],
             [
                 'attribute' => 'network_id',
-                'value' => function($model){
+                'value' => function($model) {
                     return $model->network->name;
                 }
             ],
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'is_deleted',
             [
                 'attribute' => 'creator_id',
-                'value' => function($data){
+                'value' => function($data) {
                     return $data->creator->username;
                 }
             ],

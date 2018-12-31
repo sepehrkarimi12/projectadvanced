@@ -257,7 +257,7 @@ class SiteController extends Controller implements \common\components\permission
     public function __call( $name, $params )
     {
        echo $name . ' method does not exist';
-       print_r( $params );
+       print_r($params);
        echo '<br>';
        die();
     }

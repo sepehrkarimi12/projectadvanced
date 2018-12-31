@@ -41,17 +41,20 @@ class ServiceSearch extends Service
      */
     public function search($params)
     {
-        $query = Service::find()->where(['!=','service.is_deleted',Zmodel::$active]);
+        $query = Service::find()->where(['!=', 'service.is_deleted', Zmodel::$active]);
 
         // add conditions that should always apply here
-        $query->joinWith('customer')->andOnCondition(['!=','customer.is_deleted',Zmodel::$active])->all();
-        $query->joinWith('type')->andOnCondition(['!=','servicetype.is_deleted',Zmodel::$active])->all();
+        $query->joinWith('customer')
+        ->andOnCondition(['!=', 'customer.is_deleted', Zmodel::$active])->all();
+
+        $query->joinWith('type')
+        ->andOnCondition(['!=', 'servicetype.is_deleted', Zmodel::$active])->all();
 
         // get the network that their types is active
         $query->joinWith('network')
-        ->andOnCondition(['!=','network.is_deleted',Zmodel::$active])
+        ->andOnCondition(['!=', 'network.is_deleted', Zmodel::$active])
         ->joinWith('network.type')
-        ->andOnCondition(['!=','networktype.is_deleted',Zmodel::$active])
+        ->andOnCondition(['!=', 'networktype.is_deleted', Zmodel::$active])
         ->all();
         // $query->joinWith('network.type')->andOnCondition(['!=','networktype.is_deleted',Zmodel::$active])->all();
 

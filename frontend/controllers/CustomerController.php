@@ -10,6 +10,7 @@ use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+
 /**
  * CustomerController implements the CRUD actions for Customer model.
  */
@@ -23,12 +24,12 @@ class CustomerController extends Zcontroller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'rules'=>[
+                'rules' => [
                     [
                     'actions' => ['index'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin customer');
                     }
                 ],
@@ -36,7 +37,7 @@ class CustomerController extends Zcontroller
                     'actions' => ['view'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin customer');
                     }
                 ],
@@ -44,7 +45,7 @@ class CustomerController extends Zcontroller
                     'actions' => ['create'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('add customer');
                     }
                 ],
@@ -52,7 +53,7 @@ class CustomerController extends Zcontroller
                     'actions' => ['update'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('update customer');
                     }
                 ],
@@ -60,7 +61,7 @@ class CustomerController extends Zcontroller
                     'actions' => ['delete'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('delete customer');
                     }
                 ],
@@ -114,7 +115,7 @@ class CustomerController extends Zcontroller
         $model = new Customer();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model=$this->save_customize($model);
+            $model  =  $this->save_customize($model);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -155,8 +156,8 @@ class CustomerController extends Zcontroller
     {
         // $this->findModel($id)->delete();
         //customize function is in Zcontroller class
-        $model=$this->findModel($id);
-        $model=$this->delete_customize($model);
+        $model = $this->findModel($id);
+        $model = $this->delete_customize($model);
         $model->save();
 
         return $this->redirect(['index']);

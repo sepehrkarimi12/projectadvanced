@@ -32,8 +32,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'serial',
             // 'network_id',
             [
-                'attribute'=>'network_id',
-                'value'=>function($model){
+                'attribute' => 'network_id',
+                'value' => function($model) {
                     return $model->network->name;
                 }
             ],

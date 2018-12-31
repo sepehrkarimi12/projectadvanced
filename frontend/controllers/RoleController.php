@@ -29,7 +29,7 @@ class RoleController extends Controller
                     'actions' => ['index'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin role');
                     }
                 ],
@@ -37,7 +37,7 @@ class RoleController extends Controller
                     'actions' => ['view'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin role');
                     }
                 ],
@@ -45,7 +45,7 @@ class RoleController extends Controller
                     'actions' => ['create'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('add role');
                     }
                 ],
@@ -53,7 +53,7 @@ class RoleController extends Controller
                     'actions' => ['update'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('update role');
                     }
                 ],
@@ -61,7 +61,7 @@ class RoleController extends Controller
                     'actions' => ['delete'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('delete role');
                     }
                 ],
@@ -99,10 +99,10 @@ class RoleController extends Controller
      */
     public function actionView($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
         
-        $permissions=Authitemchild::findAll(['parent'=>$model->name]);
-        $permissions=ArrayHelper::getColumn($permissions,'child');
+        $permissions = Authitemchild::findAll(['parent' => $model->name]);
+        $permissions = ArrayHelper::getColumn($permissions,'child');
 
         return $this->render('view', [
             'model' => $model,
@@ -139,7 +139,7 @@ class RoleController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) ) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->update();
             return $this->redirect(['view', 'id' => $model->name]);
         }
@@ -158,7 +158,7 @@ class RoleController extends Controller
      */
     public function actionDelete($id)
     {
-        $model=$this->findModel($id);
+        $model = $this->findModel($id);
         if(!$model->authAssignments)    
             $model->delete();    
         else    

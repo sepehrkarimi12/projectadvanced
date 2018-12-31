@@ -9,6 +9,7 @@ use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+
 /**
  * NetworkController implements the CRUD actions for Network model.
  */
@@ -22,12 +23,12 @@ class NetworkController extends Zcontroller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'rules'=>[
+                'rules' => [
                 [
                     'actions' => ['index'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin network');
                     }
                 ],
@@ -35,7 +36,7 @@ class NetworkController extends Zcontroller
                     'actions' => ['view'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin network');
                     }
                 ],
@@ -43,7 +44,7 @@ class NetworkController extends Zcontroller
                     'actions' => ['create'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('add network');
                     }
                 ],
@@ -51,7 +52,7 @@ class NetworkController extends Zcontroller
                     'actions' => ['update'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('update network');
                     }
                 ],
@@ -59,7 +60,7 @@ class NetworkController extends Zcontroller
                     'actions' => ['delete'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('delete network');
                     }
                 ],
@@ -117,8 +118,8 @@ class NetworkController extends Zcontroller
         if ($model->load(Yii::$app->request->post())) {
 
             // In model we have to check NetworkType need IP or not so we use validate() method 
-            if($model->validate()){
-                $model=$this->save_customize($model);
+            if($model->validate()) {
+                $model = $this->save_customize($model);
                 $model->save();
                 return $this->redirect(['view', 'id' => $model->id]);
             }
@@ -163,8 +164,8 @@ class NetworkController extends Zcontroller
      */
     public function actionDelete($id)
     {
-        $model=$this->findModel($id);
-        $model=$this->delete_customize($model);
+        $model = $this->findModel($id);
+        $model = $this->delete_customize($model);
         $model->save();
 
         return $this->redirect(['index']);

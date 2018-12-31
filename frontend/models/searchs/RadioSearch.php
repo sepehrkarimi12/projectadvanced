@@ -41,7 +41,7 @@ class RadioSearch extends Radio
      */
     public function search($params)
     {
-        $query = Radio::find()->where(['!=','radio.is_deleted',Zmodel::$active]);
+        $query = Radio::find()->where(['!=', 'radio.is_deleted', Zmodel::$active]);
 
         // add conditions that should always apply here
 
@@ -57,8 +57,8 @@ class RadioSearch extends Radio
             return $dataProvider;
         }
 
-        $query->joinWith('network')->andOnCondition(['!=','network.is_deleted',Zmodel::$active]);
-        $query->joinWith('network.type')->andOnCondition(['!=','networktype.is_deleted',Zmodel::$active]);
+        $query->joinWith('network')->andOnCondition(['!=', 'network.is_deleted', Zmodel::$active]);
+        $query->joinWith('network.type')->andOnCondition(['!=', 'networktype.is_deleted', Zmodel::$active]);
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,

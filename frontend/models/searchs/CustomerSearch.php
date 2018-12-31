@@ -41,7 +41,7 @@ class CustomerSearch extends Customer
      */
     public function search($params)
     {
-        $query = Customer::find()->where(['!=','is_deleted',Zmodel::$active]);
+        $query = Customer::find()->where(['!=', 'is_deleted', Zmodel::$active]);
 
         // add conditions that should always apply here
 

@@ -1,7 +1,8 @@
 <?php
 namespace common\components;
 
-interface permissions{
+interface permissions
+{
 	public function upPermissions();
 	public function downPermissions();
 }

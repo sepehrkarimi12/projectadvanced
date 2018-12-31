@@ -27,7 +27,7 @@ class ServiceController extends Zcontroller
                     'actions' => ['index'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin service');
                     }
                 ],
@@ -35,7 +35,7 @@ class ServiceController extends Zcontroller
                     'actions' => ['view'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('admin service');
                     }
                 ],
@@ -43,7 +43,7 @@ class ServiceController extends Zcontroller
                     'actions' => ['create'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('add service');
                     }
                 ],
@@ -51,7 +51,7 @@ class ServiceController extends Zcontroller
                     'actions' => ['update'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('update service');
                     }
                 ],
@@ -59,7 +59,7 @@ class ServiceController extends Zcontroller
                     'actions' => ['delete'],
                     'allow' => true,
                     'roles' => ['@'],
-                    'matchCallback'=>function($rule,$action){
+                    'matchCallback' => function($rule, $action) {
                         return Yii::$app->user->can('delete service');
                     }
                 ],
@@ -110,19 +110,19 @@ class ServiceController extends Zcontroller
     public function actionCreate()
     {
         $model = new Service();
-        $service_types=$model->getAllServiceTypes();
-        $networks=$model->getAllNetworks();
+        $service_types = $model->getAllServiceTypes();
+        $networks = $model->getAllNetworks();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model=$this->save_customize($model);
+            $model = $this->save_customize($model);
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
-            'service_types'=>$service_types,
-            'networks'=>$networks,
+            'service_types' => $service_types,
+            'networks' => $networks,
         ]);
     }
 
@@ -141,13 +141,13 @@ class ServiceController extends Zcontroller
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
-        $service_types=$model->getAllServiceTypes();
-        $networks=$model->getAllNetworks();
+        $service_types = $model->getAllServiceTypes();
+        $networks = $model->getAllNetworks();
         
         return $this->render('update', [
             'model' => $model,
-            'service_types'=>$service_types,
-            'networks'=>$networks,
+            'service_types' => $service_types,
+            'networks' => $networks,
         ]);
     }
 
@@ -160,8 +160,8 @@ class ServiceController extends Zcontroller
      */
     public function actionDelete($id)
     {
-        $model=$this->findModel($id);
-        $model=$this->delete_customize($model);
+        $model = $this->findModel($id);
+        $model = $this->delete_customize($model);
         $model->save();
 
         return $this->redirect(['index']);

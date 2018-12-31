@@ -207,19 +207,18 @@ class User extends \yii\db\ActiveRecord
         $user->setPassword($this->password);
         $user->generateAuthKey();
         
-        if($user->save())
-        {
-
+        if($user->save()) {
             $assign = new Authassignment;
 
-            $assign->user_id=$user->id;
-            $assign->item_name=$this->role;
-            $assign->created_at=time();
+            $assign->user_id = $user->id;
+            $assign->item_name = $this->role;
+            $assign->created_at = time();
             $assign->save();
 
-            $this->id=$user->id;
+            $this->id = $user->id;
             return true;
         }
+
         return false;
     }
 
@@ -227,16 +226,16 @@ class User extends \yii\db\ActiveRecord
     {
         if(!empty($this->password))
         {
-            $this->password_hash=Yii::$app->security->generatePasswordHash($this->password);
+            $this->password_hash = Yii::$app->security->generatePasswordHash($this->password);
         }
         $this->status = $this->status ? 10 : 0;
 
         // $assign = new Authassignment;
-        $assign=Authassignment::findOne(['user_id'=>$this->id]);
+        $assign = Authassignment::findOne(['user_id' => $this->id]);
         // echo "<pre>";
         // print_r($this->role);
         // die();
-        $assign->item_name=$_POST['User']['role'];
+        $assign->item_name = $_POST['User']['role'];
         $assign->save();
 
         return parent::update();
@@ -244,8 +243,8 @@ class User extends \yii\db\ActiveRecord
 
     public function getAllRoles()
     {
-        $all=Role::findAll(['type'=>1]);
-        return ArrayHelper::map($all,'name','name');
+        $all = Role::findAll(['type' => 1]);
+        return ArrayHelper::map($all, 'name', 'name');
     }
 
 }
