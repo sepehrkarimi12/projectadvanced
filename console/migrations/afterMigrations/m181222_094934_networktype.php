@@ -16,7 +16,7 @@ class m181222_094934_networktype extends Migration
             'id' => $this->primaryKey(),
             'title' => $this->string(100)->notNull(),
             
-            'is_deleted' => $this->smallInteger(),
+            'is_deleted' => $this->smallInteger()->defaultValue(0),
             'need_ip' => $this->smallInteger(),
 
             'creator_id' => $this->integer(),
