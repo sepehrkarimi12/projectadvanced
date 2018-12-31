@@ -35,12 +35,16 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'value'=>function($data){
-                    return $data->status ? 'active' : 'inActive';
+                    return $data->status ? 'Active' : 'In Active';
                 },
                 'filter'=>[
-                    10=>'active',
-                    0=>'inActive'
-                ]
+                    10=>'Active',
+                    0=>'In Active'
+                ],
+                'filterInputOptions' => [
+                   'class' => 'form-control',         
+                   'prompt' => 'Select Option'
+                ],
             ],
             // 'created_at:date',
             //'updated_at',

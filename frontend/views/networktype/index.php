@@ -41,6 +41,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->need_ip ? 'Yes' : 'No';
                 },
                 'filter'=>[1=>'Yes', 0=>'No'],
+                'filterInputOptions' => [
+                   'class' => 'form-control',         
+                   'prompt' => 'Select Option'
+                ],
             ],
             // 'created_at',
             //'deletor_id',
