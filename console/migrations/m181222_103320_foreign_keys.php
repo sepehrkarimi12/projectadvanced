@@ -203,6 +203,16 @@ class m181222_103320_foreign_keys extends Migration
             'NO ACTION'
         );
 
+        // $this->addForeignKey(
+        //     'FK_authassignment_1_user_n_',
+        //     'authassignment',
+        //     'user_id',
+        //     'user',
+        //     'id',
+        //     'CASCADE',
+        //     'NO ACTION'
+        // );
+
 
     }
 
