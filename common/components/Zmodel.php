@@ -42,6 +42,9 @@ abstract class Zmodel extends \yii\db\ActiveRecord
         
         $auth= Yii::$app->authManager;
 
+        $superadmin = $auth->createRole('super admin');
+        $auth->add($superadmin);
+
         // comment permissions
         $comment=$auth->createPermission('admin comment');
         $auth->add($comment);
@@ -110,15 +113,19 @@ abstract class Zmodel extends \yii\db\ActiveRecord
         // role permissions
         $role=$auth->createPermission('admin role');
         $auth->add($role);
+        $auth->addChild($superadmin, $role);
 
         $role=$auth->createPermission('add role');
         $auth->add($role);
+        $auth->addChild($superadmin, $role);
 
         $role=$auth->createPermission('update role');
         $auth->add($role);
+        $auth->addChild($superadmin, $role);
 
         $role=$auth->createPermission('delete role');
         $auth->add($role);
+        $auth->addChild($superadmin, $role);
 
         // service permissions
         $service=$auth->createPermission('admin service');
@@ -158,6 +165,8 @@ abstract class Zmodel extends \yii\db\ActiveRecord
 
         $user=$auth->createPermission('delete user');
         $auth->add($user);
+
+        $auth->assign($superadmin, 1);
     }
 
     public static function deletePermissions()
