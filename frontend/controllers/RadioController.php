@@ -98,7 +98,7 @@ class RadioController extends Zcontroller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => \frontend\models\FindModel::findModel(new Radio, $id),
         ]);
     }
 
@@ -133,7 +133,7 @@ class RadioController extends Zcontroller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Radio, $id);
         $networks = $model->getAllNetworks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -155,26 +155,11 @@ class RadioController extends Zcontroller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Radio, $id);
         $model = $this->delete_customize($model);
         $model->save();
 
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Radio model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Radio the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Radio::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
 }

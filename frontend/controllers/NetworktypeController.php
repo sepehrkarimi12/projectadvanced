@@ -9,6 +9,7 @@ use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
+
 /**
  * NetworktypeController implements the CRUD actions for Networktype model.
  */
@@ -98,7 +99,7 @@ class NetworktypeController extends Zcontroller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => \frontend\models\FindModel::findModel(new Networktype,$id),
         ]);
     }
 
@@ -132,7 +133,7 @@ class NetworktypeController extends Zcontroller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Networktype,$id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -152,7 +153,7 @@ class NetworktypeController extends Zcontroller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Networktype,$id);
         $model = $this->delete_customize($model);
         $model->save();
         
@@ -166,12 +167,12 @@ class NetworktypeController extends Zcontroller
      * @return Networktype the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
-    {
-        if (($model = Networktype::findOne($id)) !== null) {
-            return $model;
-        }
+    // protected function findModel($id)
+    // {
+    //     if (($model = Networktype::findOne($id)) !== null) {
+    //         return $model;
+    //     }
 
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
+    //     throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+    // }
 }

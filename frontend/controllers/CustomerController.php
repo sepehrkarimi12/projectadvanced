@@ -100,7 +100,7 @@ class CustomerController extends Zcontroller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => \frontend\models\FindModel::findModel(new Customer, $id),
         ]);
     }
 
@@ -134,7 +134,7 @@ class CustomerController extends Zcontroller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Customer, $id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -156,26 +156,11 @@ class CustomerController extends Zcontroller
     {
         // $this->findModel($id)->delete();
         //customize function is in Zcontroller class
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Customer, $id);
         $model = $this->delete_customize($model);
         $model->save();
 
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Customer model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Customer the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Customer::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
 }

@@ -102,7 +102,7 @@ class CommentController extends ZController
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => \frontend\models\FindModel::findModel(new Comment, $id),
         ]);
     }
 
@@ -156,7 +156,7 @@ class CommentController extends ZController
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Comment, $id);
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -165,7 +165,7 @@ class CommentController extends ZController
                 $model->file = $model->upload();
             }
 
-            $oldfile = $this->findModel($id)->file;
+            $oldfile = \frontend\models\FindModel::findModel(new Comment, $id)->file;
             if($model->file == null){
                 $model->file = $oldfile;
             }
@@ -200,26 +200,11 @@ class CommentController extends ZController
         // $this->findModel($id)->delete();
 
         // return $this->redirect(['index']);
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Comment, $id);
         $model = $this->delete_customize($model);
         $model->save();
 
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Comment model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Comment the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Comment::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
 }

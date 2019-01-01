@@ -98,7 +98,7 @@ class ServiceController extends Zcontroller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => \frontend\models\FindModel::findModel(new Service, $id),
         ]);
     }
 
@@ -135,7 +135,7 @@ class ServiceController extends Zcontroller
      */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Service, $id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -160,26 +160,11 @@ class ServiceController extends Zcontroller
      */
     public function actionDelete($id)
     {
-        $model = $this->findModel($id);
+        $model = \frontend\models\FindModel::findModel(new Service, $id);
         $model = $this->delete_customize($model);
         $model->save();
 
         return $this->redirect(['index']);
     }
-
-    /**
-     * Finds the Service model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Service the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
-    {
-        if (($model = Service::findOne($id)) !== null) {
-            return $model;
-        }
-
-        throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
-    }
+    
 }
