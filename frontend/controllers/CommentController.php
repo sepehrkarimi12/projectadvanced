@@ -5,9 +5,9 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Comment;
 use frontend\models\searchs\CommentSearch;
-// use yii\web\Controller;
+use yii\web\Controller;
 use common\components\Zmodel;
-use common\components\Zcontroller;
+// use common\components\Zcontroller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile;
@@ -16,7 +16,7 @@ use yii\filters\AccessControl;
 /**
  * CommentController implements the CRUD actions for Comment model.
  */
-class CommentController extends ZController
+class CommentController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -114,6 +114,11 @@ class CommentController extends ZController
     public function actionCreate()
     {
         $model = new Comment();
+
+        // echo "<pre>";
+        // var_dump($model);
+        // die;
+
         $customers = [];
         $customer_name = '';
 
@@ -134,8 +139,10 @@ class CommentController extends ZController
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
                 $model->file = $model->upload();
             }
-
-            $model=$this->save_customize($model);
+            // echo "<pre>";
+            // print_r($model);
+            // die;
+            $model=$model->save_customize_trait($model);
             $model->save(false);
             return $this->redirect(['view', 'id' => $model->id]);
         }
@@ -177,7 +184,7 @@ class CommentController extends ZController
             // echo();
             // die();
 
-            $model = $this->save_customize($model);
+            $model = $model->save_customize_trait($model);
             $model->update(false);
 
             return $this->redirect(['view', 'id' => $model->id]);
@@ -201,7 +208,7 @@ class CommentController extends ZController
 
         // return $this->redirect(['index']);
         $model = \frontend\models\FindModel::findModel(new Comment, $id);
-        $model = $this->delete_customize($model);
+        $model = $model->delete_customize_trait($model);
         $model->save();
 
         return $this->redirect(['index']);

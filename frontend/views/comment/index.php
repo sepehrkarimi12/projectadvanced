@@ -23,11 +23,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'rowOptions' => function($row) {
+            // return $row->text;
+            // return $row->text = 21;
+            // die;
+        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             // 'id',
-            'text:ntext',
+            // 'text:ntext',
+            [
+                'attribute' => 'text',
+                'format' => 'ntext',
+                'value' => function($data) {
+                    return html_entity_decode($data->text);
+                }
+            ],
             // 'file',
             [
                 'attribute' => 'customer_id',

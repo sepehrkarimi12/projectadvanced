@@ -5,6 +5,7 @@ namespace frontend\models;
 use yii\helpers\ArrayHelper;
 use common\models\User;
 use Yii;
+use common\components\timeTrait;
 
 /**
  * This is the model class for table "comment".
@@ -25,10 +26,14 @@ use Yii;
  */
 class Comment extends \yii\db\ActiveRecord
 {
+    // for customizing save and delete
+    use \common\components\timeTrait;
+
     public $imageFile;
     /**
      * {@inheritdoc}
      */
+
     public static function tableName()
     {
         return 'comment';
