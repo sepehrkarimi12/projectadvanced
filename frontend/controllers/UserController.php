@@ -187,7 +187,7 @@ class UserController extends Controller
         throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
     }
 
-    private function getRole(int $id)
+    private function getRole($id)
     {
         return Authassignment::findOne(['user_id' => $id])->item_name;
     }
