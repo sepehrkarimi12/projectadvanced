@@ -115,7 +115,9 @@ class CustomerController extends Zcontroller
         $model = new Customer();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model  =  $this->save_customize($model);
+            // $model = $this->save_customize($model);
+
+            // creator_id and created_at fields get their values by Behavior() in Model
             $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }

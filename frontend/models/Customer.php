@@ -6,6 +6,7 @@ use yii\db\ActiveRecord;
 use common\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
+use yii\behaviors\BlameableBehavior;
 
 /**
  * This is the model class for table "customer".
@@ -64,6 +65,12 @@ class Customer extends \common\components\Zmodel
     {
         return [
             [
+                'class' => BlameableBehavior::className(),
+                'createdByAttribute' => 'creator_id',
+                'updatedByAttribute' => '',
+
+            ],
+            'timestamp' => [
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
