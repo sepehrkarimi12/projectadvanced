@@ -102,8 +102,8 @@ class Comment extends \yii\db\ActiveRecord
     {
         $address = null;
         if($this->imageFile){
-        $address = 'uploads/' . time() . '.' . $this->imageFile->extension;
-        $this->imageFile->saveAs($address, false);
+            $address = 'uploads/' . time() . '.' . $this->imageFile->extension;
+            $this->imageFile->saveAs($address, false);
         }
         return $address;
     }
