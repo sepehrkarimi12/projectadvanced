@@ -20,6 +20,17 @@ use yii\widgets\ActiveForm;
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
 
+    <div class="col-md-8">
+        <h2>Categories :</h2>
+        <pre>
+	        <?= 
+	        	 Html::checkboxList('categories[]',
+	        	 $model->getSelectedCategories(),
+	        	 $model->getAllCategories() ,['class'=>'']) 
+	        ?>
+    	</pre>
+    </div>
+
     <?php ActiveForm::end(); ?>
 
 </div>
