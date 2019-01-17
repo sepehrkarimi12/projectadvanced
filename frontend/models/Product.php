@@ -11,6 +11,7 @@ use Yii;
  * @property int $id
  * @property string $title
  * @property int $price
+ * @property boolean is_deleted
  *
  * @property CategoryProduct[] $categoryProducts
  */
@@ -96,12 +97,24 @@ class Product extends \yii\db\ActiveRecord
         }
     }
 
-    public function beforeDelete()
+    // public function beforeDelete()
+    // {
+    //     $delete_all_old_selected_categories = CategoryProduct::deleteAll([
+    //         'product_id' => $this->id,
+    //     ]);
+    //     return true;
+    // }
+
+    public static function find()
     {
-        $delete_all_old_selected_categories = CategoryProduct::deleteAll([
-            'product_id' => $this->id,
-        ]);
-        return true;
+        return parent::find()->where(['!=', 'is_deleted', 1]);
+    }
+
+    public function delete()
+    {
+        $model = self::findOne($_GET['id']);
+        $model->is_deleted = 1;
+        return $model->updateAttributes(['is_deleted' => '1']);
     }
 
 }
