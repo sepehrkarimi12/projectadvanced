@@ -85,7 +85,7 @@ class Product extends \yii\db\ActiveRecord
             'product_id' => $this->id,
         ]);
 
-        // save permissions in authitemchild
+        // save categories in authitemchild
         if (isset($_POST['categories'])){
             foreach ($_POST['categories'] as $v) {
                 $category = new CategoryProduct;
@@ -94,6 +94,14 @@ class Product extends \yii\db\ActiveRecord
                 $category->save();
             }
         }
+    }
+
+    public function beforeDelete()
+    {
+        $delete_all_old_selected_categories = CategoryProduct::deleteAll([
+            'product_id' => $this->id,
+        ]);
+        return true;
     }
 
 }
