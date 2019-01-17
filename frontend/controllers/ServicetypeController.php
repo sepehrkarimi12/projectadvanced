@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Servicetype;
+use frontend\models\Networktype;
 use frontend\models\searchs\ServicetypeSearch;
 // use yii\web\Controller;
 // use common\components\Zcontroller;
@@ -85,6 +86,10 @@ class ServicetypeController extends Controller
     {
         $searchModel = new ServicetypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        // echo("<pre>");
+        // Networktype::findOne(5)->delete();
+        // die;
 
         return $this->render('index', [
             'searchModel' => $searchModel,

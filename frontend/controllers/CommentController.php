@@ -166,26 +166,30 @@ class CommentController extends Controller
         $model = \frontend\models\FindModel::findModel(new Comment, $id);
 
         if ($model->load(Yii::$app->request->post())) {
-
-            if(empty($model->imageFile)) {            
+            echo "<pre>";
+            print_r($model->imageFile);
+            die();
+            if(!empty($model->imageFile)) {  
+                die();  
+                unlink($model->file);
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
                 $model->file = $model->upload();
             }
 
-            $oldfile = \frontend\models\FindModel::findModel(new Comment, $id)->file;
-            if($model->file == null){
-                $model->file = $oldfile;
-            }
-            else
-            {  
-                if($oldfile != null)
-                    unlink($oldfile);
-            }
+            // $oldfile = \frontend\models\FindModel::findModel(new Comment, $id)->file;
+            // if($model->file == null){
+            //     $model->file = $oldfile;
+            // }
+            // else
+            // {  
+            //     if($oldfile != null)
+            //         unlink($oldfile);
+            // }
             // echo();
             // die();
 
             $model = $model->save_customize_trait($model);
-            $model->update(false);
+            $model->save(false);
 
             return $this->redirect(['view', 'id' => $model->id]);
         }
