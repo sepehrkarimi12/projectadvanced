@@ -40,10 +40,11 @@ class ProductController extends Controller
         // print_r($a);
         // die;
 
-        echo "<pre>";
-        $a = new Product;
-        print_r( $a->findOne(25)->categories );
-        die();
+        // rellation :
+        // echo "<pre>";
+        // $a = new Product;
+        // print_r( $a->findOne(25)->categories );
+        // die;
 
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);

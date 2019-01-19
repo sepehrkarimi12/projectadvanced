@@ -38,6 +38,7 @@ class CategoryController extends Controller
         $searchModel = new CategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+        // rellation :
         // echo "<pre>";
         // $a = new Category;
         // print_r( $a->findOne(1)->products );
