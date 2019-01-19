@@ -35,10 +35,10 @@ class ProductController extends Controller
      */
     public function actionIndex()
     {
-        echo "<pre>";
-        $a = Product::find(['id' => 23])->one();
-        print_r($a);
-        die;
+        // echo "<pre>";
+        // $a = Product::find(['id' => 23])->one();
+        // print_r($a);
+        // die;
 
         $searchModel = new ProductSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
