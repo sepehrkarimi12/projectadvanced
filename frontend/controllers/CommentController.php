@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Comment;
+use frontend\models\Customer;
 use frontend\models\searchs\CommentSearch;
 use yii\web\Controller;
 use common\components\Zmodel;
@@ -111,39 +112,22 @@ class CommentController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id=NULL)
     {
         $model = new Comment();
 
-        // echo "<pre>";
-        // var_dump($model);
-        // die;
-
-        $customers = [];
         $customer_name = '';
+        $customers = [];
 
-        if(isset($_GET['id']) && isset($_GET['name'])) {
-            $model->customer_id = $_GET['id'];
-            $customer_name = $_GET['name'];
-        }
-        else {
+        //it comes from customer
+        if (isset($id))
+            $customer_name = $model->getNameOfCustomer($id);
+        else
             $customers = Zmodel::getAllCustomers();
-        }
-        // print_r($customers);
-        // die();
 
         if ($model->load(Yii::$app->request->post())) {
-            // echo !($model->imageFile);
-            // die();
-            if (empty($model->imageFile)) {            
-                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                $model->file = $model->upload();
-            }
-            // echo "<pre>";
-            // print_r($model);
-            // die;
-            $model=$model->save_customize_trait($model);
-            $model->save(false);
+            $model = $model->save_customize_trait($model);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -166,31 +150,8 @@ class CommentController extends Controller
         $model = \frontend\models\FindModel::findModel(new Comment, $id);
 
         if ($model->load(Yii::$app->request->post())) {
-            echo "<pre>";
-            print_r($model->imageFile);
-            die();
-            if(!empty($model->imageFile)) {  
-                die();  
-                unlink($model->file);
-                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                $model->file = $model->upload();
-            }
-
-            // $oldfile = \frontend\models\FindModel::findModel(new Comment, $id)->file;
-            // if($model->file == null){
-            //     $model->file = $oldfile;
-            // }
-            // else
-            // {  
-            //     if($oldfile != null)
-            //         unlink($oldfile);
-            // }
-            // echo();
-            // die();
-
             $model = $model->save_customize_trait($model);
-            $model->save(false);
-
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

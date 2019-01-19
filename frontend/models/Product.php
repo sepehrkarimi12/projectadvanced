@@ -112,8 +112,7 @@ class Product extends \yii\db\ActiveRecord
 
     public function delete()
     {
-        $model = self::findOne($_GET['id']);
-        $model->is_deleted = 1;
+        $model = self::findOne($this->id);
         return $model->updateAttributes(['is_deleted' => '1']);
     }
 

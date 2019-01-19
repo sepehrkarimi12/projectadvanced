@@ -24,8 +24,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-        <?= Html::a(Yii::t('app', 'ADD Comment'),['comment/create', 'id' => $model->id, 'name' => $model->fname. ' ' .$model->lname
-        ], ['class'=>'btn btn-default']) ?>
+        <?= Html::a(Yii::t('app', 'ADD Comment'),['comment/create', 'id' => $model->id],
+         ['class'=>'btn btn-default']) ?>
     </p>
 
     <?= DetailView::widget([

@@ -44,7 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'additional_icon' => function ($url, $model, $key) {
-                        return Html::a ( '<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> ', ['comment/create', 'id' => $model->id, 'name' => $model->fname. ' ' .$model->lname] );
+                        return Html::a ( '<span class="glyphicon glyphicon-comment" aria-hidden="true"></span> ', ['comment/create', 'id' => $model->id] );
                     },
                 ],
                 'template' => '{update} {view} {delete} {additional_icon}'
