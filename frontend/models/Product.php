@@ -59,8 +59,8 @@ class Product extends \yii\db\ActiveRecord
     // }
 
     public function getCategories() {
-        return $this->hasMany(Category::className(), ['id' => 'product_id'])
-          ->viaTable(CategoryProduct::tableName(), ['category_id' => 'id']);
+        return $this->hasMany(Category::className(), ['id' => 'category_id'])
+          ->viaTable(CategoryProduct::tableName(), ['product_id' => 'id']);
     }
 
     public function getAllCategories()
