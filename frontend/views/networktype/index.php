@@ -39,7 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'creator_id',
                 'value' => function($data) {
                     return $data->creator->username;
-                }
+                },
+                'visible' => 1,
             ],
             [
                 'attribute' => 'need_ip',
@@ -56,7 +57,7 @@ $this->params['breadcrumbs'][] = $this->title;
             //'deletor_id',
             //'deleted_at',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn','visible' => 1],
         ],
     ]); ?>
     <?php Pjax::end(); ?>
