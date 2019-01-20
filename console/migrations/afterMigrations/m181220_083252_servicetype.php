@@ -16,6 +16,7 @@ class m181220_083252_servicetype extends Migration
             'title' => $this->string(100)->notNull(),
             
             'is_deleted' => $this->smallInteger()->defaultValue(0),
+            'creator_username' => $this->string(100),
 
             'creator_id' => $this->integer(),
             'created_at' => $this->integer(),
