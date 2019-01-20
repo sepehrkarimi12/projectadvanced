@@ -112,21 +112,11 @@ class CommentController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate($id=NULL)
+    public function actionCreate($id = NULL)
     {
         $model = new Comment();
 
-        $customer_name = '';
-        $customers = [];
-
-        //it comes from customer
-        if (isset($id)) {
-            $customer_name = $model->getNameOfCustomer($id);
-            $model->customer_id = $id;
-        }
-        else {
-            $customers = Zmodel::getAllCustomers();
-        }
+        $customers = Zmodel::getAllCustomers($id);
 
         if ($model->load(Yii::$app->request->post())) {
             $model = $model->save_customize_trait($model);
@@ -137,7 +127,6 @@ class CommentController extends Controller
         return $this->render('create', [
             'model' => $model,
             'customers' => $customers,
-            'customer_name' => $customer_name,
         ]);
     }
 
@@ -151,6 +140,8 @@ class CommentController extends Controller
     public function actionUpdate($id)
     {
         $model = \frontend\models\FindModel::findModel(new Comment, $id);
+        $customers = Zmodel::getAllCustomers($id);
+        // echo $customers[1];die;
 
         if ($model->load(Yii::$app->request->post())) {
             $model = $model->save_customize_trait($model);
@@ -160,6 +151,7 @@ class CommentController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'customers' => $customers,
         ]);
     }
 

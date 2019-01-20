@@ -99,12 +99,6 @@ class Comment extends \yii\db\ActiveRecord
         return $this->hasOne(Customer::className(), ['id' => 'customer_id']);
     }
 
-    public function getNameOfCustomer($id)
-    {
-        $customer = \frontend\models\FindModel::findModel(new Customer, $id);
-        return $customer->fname . ' ' . $customer->lname;
-    }
-
     public function upload()
     {
         $address = $this->isNewRecord ? NULL : $this->file;
