@@ -82,6 +82,9 @@ class Product extends \yii\db\ActiveRecord
 
     public function afterSave($insert, $changedAttributes)
     {
+        // echo "<pre>";
+        // print_r($this);
+        // die;
         $delete_all_old_selected_categories = CategoryProduct::deleteAll([
             'product_id' => $this->id,
         ]);
@@ -89,10 +92,8 @@ class Product extends \yii\db\ActiveRecord
         // save categories in authitemchild
         if (isset($_POST['categories'])){
             foreach ($_POST['categories'] as $v) {
-                $category = new CategoryProduct;
-                $category->product_id = $this->id;
-                $category->category_id = $v;
-                $category->save();
+                $category = Category::findOne($v);
+                $this->link('categories', $category);
             }
         }
     }
