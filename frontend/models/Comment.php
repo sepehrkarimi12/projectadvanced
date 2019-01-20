@@ -102,7 +102,6 @@ class Comment extends \yii\db\ActiveRecord
     public function getNameOfCustomer($id)
     {
         $customer = \frontend\models\FindModel::findModel(new Customer, $id);
-        $this->customer_id = $id;
         return $customer->fname . ' ' . $customer->lname;
     }
 

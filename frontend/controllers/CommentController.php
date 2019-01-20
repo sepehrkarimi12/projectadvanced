@@ -120,10 +120,13 @@ class CommentController extends Controller
         $customers = [];
 
         //it comes from customer
-        if (isset($id))
+        if (isset($id)) {
             $customer_name = $model->getNameOfCustomer($id);
-        else
+            $model->customer_id = $id;
+        }
+        else {
             $customers = Zmodel::getAllCustomers();
+        }
 
         if ($model->load(Yii::$app->request->post())) {
             $model = $model->save_customize_trait($model);
