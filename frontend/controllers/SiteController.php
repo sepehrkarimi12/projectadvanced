@@ -228,6 +228,10 @@ class SiteController extends Controller implements \common\components\permission
         $this->downPermissions();
     }
 
+    /**
+     * @auth
+     *
+     */
     public function upPermissions()
     {
         Zmodel::runPermissions();

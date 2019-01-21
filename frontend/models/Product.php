@@ -91,9 +91,18 @@ class Product extends \yii\db\ActiveRecord
 
         // save categories in authitemchild
         if (isset($_POST['categories'])){
-            foreach ($_POST['categories'] as $v) {
-                $category = Category::findOne($v);
-                $this->link('categories', $category);
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                foreach ($_POST['categories'] as $v) {
+                    $category = Category::findOne($v);
+                    $this->link('categories', $category);
+                }
+                // die;
+                $transaction->commit();
+            }
+            catch (\Exception $e) {
+                $transaction->rollBack();
+                throw $e;
             }
         }
     }
