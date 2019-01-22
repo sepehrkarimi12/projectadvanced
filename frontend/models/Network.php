@@ -57,7 +57,7 @@ class Network extends Zmodel
             [['type_id', 'is_deleted', 'creator_id', 'created_at', 'deletor_id', 'deleted_at'], 'integer'],
             [['name'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 200],
-            [['ip_address'], 'string', 'max' => 15],
+            [['ip_address'], 'ip',],
             [['creator_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['creator_id' => 'id']],
             [['deletor_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['deletor_id' => 'id']],
             [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Networktype::className(), 'targetAttribute' => ['type_id' => 'id']],

@@ -4,6 +4,7 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Comment;
+use frontend\models\Customer;
 use frontend\models\searchs\CommentSearch;
 use yii\web\Controller;
 use common\components\Zmodel;
@@ -111,46 +112,21 @@ class CommentController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id = NULL)
     {
         $model = new Comment();
 
-        // echo "<pre>";
-        // var_dump($model);
-        // die;
-
-        $customers = [];
-        $customer_name = '';
-
-        if(isset($_GET['id']) && isset($_GET['name'])) {
-            $model->customer_id = $_GET['id'];
-            $customer_name = $_GET['name'];
-        }
-        else {
-            $customers = Zmodel::getAllCustomers();
-        }
-        // print_r($customers);
-        // die();
+        $customers = Zmodel::getAllCustomers($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            // echo !($model->imageFile);
-            // die();
-            if (empty($model->imageFile)) {            
-                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                $model->file = $model->upload();
-            }
-            // echo "<pre>";
-            // print_r($model);
-            // die;
-            $model=$model->save_customize_trait($model);
-            $model->save(false);
+            $model = $model->save_customize_trait($model);
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('create', [
             'model' => $model,
             'customers' => $customers,
-            'customer_name' => $customer_name,
         ]);
     }
 
@@ -164,34 +140,18 @@ class CommentController extends Controller
     public function actionUpdate($id)
     {
         $model = \frontend\models\FindModel::findModel(new Comment, $id);
+        $customers = Zmodel::getAllCustomers($id);
+        // echo $customers[1];die;
 
         if ($model->load(Yii::$app->request->post())) {
-
-            if(empty($model->imageFile)) {            
-                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-                $model->file = $model->upload();
-            }
-
-            $oldfile = \frontend\models\FindModel::findModel(new Comment, $id)->file;
-            if($model->file == null){
-                $model->file = $oldfile;
-            }
-            else
-            {  
-                if($oldfile != null)
-                    unlink($oldfile);
-            }
-            // echo();
-            // die();
-
             $model = $model->save_customize_trait($model);
-            $model->update(false);
-
+            $model->save();
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
         return $this->render('update', [
             'model' => $model,
+            'customers' => $customers,
         ]);
     }
 

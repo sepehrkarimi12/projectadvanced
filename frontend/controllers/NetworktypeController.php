@@ -82,6 +82,9 @@ class NetworktypeController extends Zcontroller
     public function actionIndex()
     {
         $searchModel = new NetworktypeSearch();
+        // echo "<pre>";
+        // print_r(Yii::$app->request->queryParams);
+        // die;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use yii\web\UploadedFile;
 use yii\helpers\ArrayHelper;
 use common\models\User;
 use Yii;
@@ -100,12 +101,29 @@ class Comment extends \yii\db\ActiveRecord
 
     public function upload()
     {
-        $address = null;
+        $address = $this->isNewRecord ? NULL : $this->file;
         if($this->imageFile){
-        $address = 'uploads/' . time() . '.' . $this->imageFile->extension;
-        $this->imageFile->saveAs($address, false);
+            $address = 'uploads/' . time() . '.' . $this->imageFile->extension;
+            $this->imageFile->saveAs($address, false);
         }
-        return $address;
+        $this->file = $address;
+    }
+
+    public function beforeSave($insert)
+    {
+        if(!$this->isNewRecord && $this->file && !empty($this->imageFile)) {
+            // echo "in";
+            // die;
+            unlink($this->file);
+        }
+        // echo "out";
+        // die;
+
+        if (empty($this->imageFile)) {            
+            $this->imageFile = UploadedFile::getInstance($this, 'imageFile');
+            $this->upload();
+        }
+        return true;
     }
 
 }

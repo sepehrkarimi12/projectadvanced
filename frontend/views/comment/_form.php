@@ -16,16 +16,14 @@ use dosamigos\ckeditor\CKEditor;
 
 
     <?php 
-        if(!isset($_GET['id'])) :
-            echo $form->field($model, 'customer_id')->widget(Select2::classname(), [
-                'data' => $customers,
-                'language' => 'en',
-                'options' => ['placeholder' => 'Select customer name ...'],
-                'pluginOptions' => [
-                    'allowClear' => true
-                ],
-            ]);
-        endif;
+        echo $form->field($model, 'customer_id')->widget(Select2::classname(), [
+            'data' => $customers,
+            'language' => 'en',
+            'options' => ['placeholder' => 'Select customer name ...'],
+            'pluginOptions' => [
+                'allowClear' => true
+            ],
+        ]);
     ?>
 
     

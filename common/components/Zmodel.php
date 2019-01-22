@@ -13,13 +13,23 @@ abstract class Zmodel extends \yii\db\ActiveRecord
     // need ip or not
     public static $ip = 1;
 
-	public static function getAllCustomers()
+	public static function getAllCustomers($id = NULL)
     {
-        $all=Customer::find()->where(['!=','is_deleted',self::$active])->all();
-        $all=ArrayHelper::map(
+        if ($id != NULL) {
+            $all = Customer::find()
+            ->where(['!=','is_deleted',self::$active])
+            ->andWhere(['id' => $id])
+            ->all();
+        }
+        else {
+            $all = Customer::find()
+            ->where(['!=','is_deleted',self::$active])
+            ->all();
+        }
+        $all = ArrayHelper::map(
             $all,
             'id',
-            function($model) {
+            function ($model) {
                 return $model->fname.' '.$model['lname'];
             }
         );

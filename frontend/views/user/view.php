@@ -38,7 +38,7 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'status',
                 'value' => function($data) {
-                    return $data->status == 10 ? 'actice' : 'inActive';
+                    return $data->status == 10 ? 'Active' : 'inActive';
                 }
             ],
             'created_at:date',

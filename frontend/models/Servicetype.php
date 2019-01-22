@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use common\models\User;
+use yii\behaviors\AttributeBehavior;
+use yii\db\ActiveRecord;
 use Yii;
 
 /**
@@ -10,6 +12,7 @@ use Yii;
  *
  * @property int $id
  * @property string $title
+ * @property string $creator_username
  * @property int $is_deleted
  * @property int $creator_id
  * @property int $created_at
@@ -20,7 +23,7 @@ use Yii;
  * @property User $creator
  * @property User $deletor
  */
-class Servicetype extends \yii\db\ActiveRecord
+class Servicetype extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -28,6 +31,21 @@ class Servicetype extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'servicetype';
+    }
+
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => AttributeBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => 'creator_username',
+                ],
+                'value' => function ($event) {
+                    return Yii::$app->user->identity->username;
+                }
+            ]
+        ];
     }
 
     /**

@@ -66,7 +66,7 @@ class ServiceSearch extends Service
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
+            //$query->where('0=1');
             return $dataProvider;
         }
 
@@ -83,7 +83,7 @@ class ServiceSearch extends Service
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'service. address', $this->address])
+            ->andFilterWhere(['like', 'service.address', $this->address])
             ->andFilterWhere(['like', 'ppoe_username', $this->ppoe_username])
             ->andFilterWhere(['like', 'ppoe_password', $this->ppoe_password])
             ->andFilterWhere([
