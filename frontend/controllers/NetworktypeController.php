@@ -23,8 +23,8 @@ class NetworktypeController extends Zcontroller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'rules'=>[
-                    [
+                'rules'=> [
+                [
                     'actions' => ['index'],
                     'allow' => true,
                     'roles' => ['@'],
