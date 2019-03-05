@@ -11,6 +11,9 @@ $this->title = Yii::t('app', 'Update Role: {name}', [
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Roles'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $model->name, 'url' => ['view', 'id' => $model->name]];
 $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
+//  echo "<pre>";
+// print_r($this->params);
+// die;
 ?>
 <div class="role-update">
 

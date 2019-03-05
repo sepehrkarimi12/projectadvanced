@@ -102,6 +102,7 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
         $model->role = $this->getRole($id);
+        // echo "<pre>";print_r($model);die;
         return $this->render('view', [
             'model' => $model,
         ]);

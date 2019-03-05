@@ -3,6 +3,8 @@
 namespace frontend\models;
 
 use yii\base\Model;
+use yii\web\NotFoundHttpException;
+use Yii;
 
 class FindModel
 {

@@ -1,6 +1,7 @@
 <?php
 namespace frontend\controllers;
 
+use yii\data\ActiveDataProvider;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
@@ -11,6 +12,7 @@ use common\models\LoginForm;
 use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
+use frontend\models\Servicetype;
 use frontend\models\ContactForm;
 use common\components\Zmodel;
 
@@ -77,6 +79,52 @@ class SiteController extends Controller implements \common\components\permission
      */
     public function actionIndex()
     {
+        // $a = null;
+        // echo empty($a = null); //1
+        // echo empty($a = ''); //1
+        // echo empty($a = []); //1
+        // echo empty($a = "null"); //0
+        // echo empty($a = 'null'); //0
+        // die();
+        // -----------
+        // echo "<pre>";
+        // print_r(Yii::$app->db->slave);
+        // -----
+        // $command = (new \yii\db\Query())
+        // ->select(['id', 'title'])
+        // ->from('servicetype')
+        // ->where(['last_name' => 'ali'])
+        // ->limit(10)
+        // ->createCommand();
+
+        // // show the SQL statement
+        // echo $command->sql . "<br/>";
+        // // show the parameters to be bound
+        // print_r($command->params);
+        // ----------
+        // $query = Servicetype::find();
+
+        // $provider = new ActiveDataProvider([
+        //     'query' => $query,
+        // ]);
+
+        // // returns an array of Post objects
+        // $Servicetypes = $provider->getModels();
+        // print_r($Servicetypes);
+        // // returns the primary key values corresponding to $posts
+        // $ids = $provider->getKeys();
+        // print_r($ids);
+        // ---------
+        // $record = Servicetype::findOne(5);
+        // // above code is equal with down code
+        // // $record = Servicetype::findOne(5)->toArray();
+        // print_r($record->attributes);
+        // ------
+        // $record = Servicetype::findOne(7);
+        // print_r( $record->services );
+        // print_r( $record->getServices() );
+        // die;
+
         return $this->render('index');
     }
 

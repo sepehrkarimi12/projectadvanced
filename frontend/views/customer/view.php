@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
+// echo"<pre>";print_r($model);die();
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Customer */
 

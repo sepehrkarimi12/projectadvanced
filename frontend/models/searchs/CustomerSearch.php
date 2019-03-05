@@ -48,6 +48,7 @@ class CustomerSearch extends Customer
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
+        // echo"<pre>";print_r($dataProvider);die();
 
         $this->load($params);
 

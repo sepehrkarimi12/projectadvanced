@@ -120,6 +120,10 @@ class RoleController extends Controller
         $model = new Role();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        	// print_r($_POST['Role']);
+        	// echo "<hr/>";
+        	// print_r($_POST['permissions']);
+        	// die;
             return $this->redirect(['view', 'id' => $model->name]);
         }
 
@@ -138,7 +142,9 @@ class RoleController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+// echo "<pre>";
+// print_r($model);
+// die;
         if ($model->load(Yii::$app->request->post())) {
             $model->update();
             return $this->redirect(['view', 'id' => $model->name]);

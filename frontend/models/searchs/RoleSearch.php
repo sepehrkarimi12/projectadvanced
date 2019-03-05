@@ -48,7 +48,8 @@ class RoleSearch extends Role
             'query' => $query,
         ]);
 
-        $this->load($params);
+        // this line load and keep value of inputs in GridView SearchBoxes
+        $this->load($params);   
 
         if (!$this->validate()) {
             // uncomment the following line if you do not want to return any records when validation fails

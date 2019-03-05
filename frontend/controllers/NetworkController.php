@@ -113,6 +113,7 @@ class NetworkController extends Zcontroller
         $model = new Network();
         // $model->scenario = Network::SCENARIO_WITH_IP;
         $networktypes = $model->getAllNetworktypes();
+        // echo "<pre>";print_r($networktypes);die;
 
 
         if ($model->load(Yii::$app->request->post())) {

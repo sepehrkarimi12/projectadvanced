@@ -14,7 +14,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php Pjax::begin(); ?>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
         <?= Html::a(Yii::t('app', 'Create Customer'), ['create'], ['class' => 'btn btn-success']) ?>
@@ -25,11 +25,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
+            [
+                'header' => 'header <br> header',
+                'attribute' => 'mobile',
+                'format' => ['decimal'],
+            ],
             // 'id',
-            'fname',
-            'lname',
-            'address',
+            // 'fname',
+            // 'lname',
+            // 'address',
             'email:email',
             //'phone',
             //'mobile',
@@ -40,7 +44,15 @@ $this->params['breadcrumbs'][] = $this->title;
             //'deleted_at',
 
             // ['class' => 'yii\grid\ActionColumn'],
-
+            [
+                'class' => 'yii\grid\DataColumn', // can be omitted, as it is the default
+                'value' => function ($data) {
+                    return $data->mobile; // $data['name'] for array data, e.g. using SqlDataProvider.
+                },
+            ],
+            [
+                'class' => 'yii\grid\CheckboxColumn',
+            ],
             ['class' => 'yii\grid\ActionColumn',
                 'buttons' => [
                     'additional_icon' => function ($url, $model, $key) {
@@ -55,3 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ]); ?>
     <?php Pjax::end(); ?>
 </div>
+
+<script type="text/javascript">
+    var keys = $('#grid').yiiGridView('getSelectedRows');
+</script>

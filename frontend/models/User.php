@@ -244,6 +244,7 @@ class User extends \yii\db\ActiveRecord
     public function getAllRoles()
     {
         $all = Role::findAll(['type' => 1]);
+        // echo "<pre>";print_r($all);die;
         return ArrayHelper::map($all, 'name', 'name');
     }
 
