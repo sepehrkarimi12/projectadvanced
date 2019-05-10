@@ -28,8 +28,8 @@ use dosamigos\ckeditor\CKEditor;
 
     
     <?= $form->field($model, 'text')->widget(CKEditor::className(), [
-        'options' => ['rows' => 6],
-        'preset' => 'basic'
+        'options' => ['rows' => 3],
+        'preset' => 'advanced'
     ]) ?>
 
     <?= $form->field($model, 'imageFile')->fileInput() ?>
